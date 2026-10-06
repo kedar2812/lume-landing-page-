@@ -29,3 +29,12 @@ if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
   }
   (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver = IO;
 }
+if (typeof window !== "undefined" && !("ResizeObserver" in window)) {
+  class RO {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  (window as unknown as { ResizeObserver: unknown }).ResizeObserver = RO;
+  (globalThis as unknown as { ResizeObserver: unknown }).ResizeObserver = RO;
+}
