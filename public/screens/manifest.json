@@ -1,0 +1,405 @@
+{
+  "capturedAt": "2026-10-06T12:57:20.727Z",
+  "screens": [
+    {
+      "name": "today",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 189858
+    },
+    {
+      "name": "team",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 164260
+    },
+    {
+      "name": "overview",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 201224
+    },
+    {
+      "name": "caught-no-touch",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 166920
+    },
+    {
+      "name": "caught-needs-you",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 194544
+    },
+    {
+      "name": "caught-source",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 157398
+    },
+    {
+      "name": "caught-goal",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 159094
+    },
+    {
+      "name": "leads",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 140370
+    },
+    {
+      "name": "action-whatsapp",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 77736
+    },
+    {
+      "name": "action-call",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 76296
+    },
+    {
+      "name": "action-follow-up",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 80902
+    },
+    {
+      "name": "action-won",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 75882
+    },
+    {
+      "name": "action-bulk",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 135880
+    },
+    {
+      "name": "action-queue",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 150018
+    },
+    {
+      "name": "pipeline",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 187870
+    },
+    {
+      "name": "action-search",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 61448
+    },
+    {
+      "name": "action-drill",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 110308
+    },
+    {
+      "name": "security",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 148052
+    },
+    {
+      "name": "trace",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 150524
+    },
+    {
+      "name": "calendar",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 153264
+    },
+    {
+      "name": "today-rep",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 167886
+    },
+    {
+      "name": "me",
+      "theme": "light",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 135962
+    },
+    {
+      "name": "today",
+      "theme": "light",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 113638
+    },
+    {
+      "name": "leads",
+      "theme": "light",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 89228
+    },
+    {
+      "name": "drawer",
+      "theme": "light",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 76700
+    },
+    {
+      "name": "today",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 174308
+    },
+    {
+      "name": "team",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 152924
+    },
+    {
+      "name": "overview",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 189022
+    },
+    {
+      "name": "caught-no-touch",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 153362
+    },
+    {
+      "name": "caught-needs-you",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 179116
+    },
+    {
+      "name": "caught-source",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 146526
+    },
+    {
+      "name": "caught-goal",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 148126
+    },
+    {
+      "name": "leads",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 129944
+    },
+    {
+      "name": "action-whatsapp",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 65736
+    },
+    {
+      "name": "action-call",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 65492
+    },
+    {
+      "name": "action-follow-up",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 69892
+    },
+    {
+      "name": "action-won",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 64596
+    },
+    {
+      "name": "action-bulk",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 127260
+    },
+    {
+      "name": "action-queue",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 138732
+    },
+    {
+      "name": "pipeline",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 171842
+    },
+    {
+      "name": "action-search",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 50558
+    },
+    {
+      "name": "action-drill",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 96504
+    },
+    {
+      "name": "security",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 133662
+    },
+    {
+      "name": "trace",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 134942
+    },
+    {
+      "name": "calendar",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 140468
+    },
+    {
+      "name": "today-rep",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 153234
+    },
+    {
+      "name": "me",
+      "theme": "dark",
+      "phone": false,
+      "width": 2880,
+      "height": 1800,
+      "bytes": 125546
+    },
+    {
+      "name": "today",
+      "theme": "dark",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 102916
+    },
+    {
+      "name": "leads",
+      "theme": "dark",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 80908
+    },
+    {
+      "name": "drawer",
+      "theme": "dark",
+      "phone": true,
+      "width": 1170,
+      "height": 2532,
+      "bytes": 69346
+    }
+  ]
+}

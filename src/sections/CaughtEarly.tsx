@@ -29,9 +29,9 @@ const PAIRS: { shot: ScreenName; alt: string; spotted: string; then: string }[] 
   },
   {
     shot: "caught-goal",
-    alt: "A goal in LUME with its pace and what it takes to catch up",
-    spotted: "A goal falling behind its pace.",
-    then: "The pace and the gap, while there’s time to close it.",
+    alt: "This month's goals in LUME, each with where it will land at today's pace",
+    spotted: "Where each goal will land, at today’s pace.",
+    then: "Ahead or behind, you know with weeks to spare.",
   },
 ];
 
