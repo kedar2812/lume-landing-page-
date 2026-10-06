@@ -1,0 +1,85 @@
+.steps {
+  list-style: none;
+  margin: clamp(40px, 6vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 14px;
+  position: relative;
+}
+/* The thread that joins the four moments, drawn as the section scrolls in. */
+.steps::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 38px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--line-2), var(--accent));
+  transform-origin: left;
+  animation: thread linear both;
+  animation-timeline: view();
+  animation-range: entry 20% cover 45%;
+  z-index: 0;
+}
+@keyframes thread {
+  from {
+    transform: scaleX(0);
+  }
+}
+.step {
+  position: relative;
+  z-index: 1;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.when {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-3);
+}
+.step h3 {
+  margin: 10px 0 8px;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.02em;
+}
+.step p {
+  margin: 0;
+  color: var(--text-2);
+}
+.won {
+  background: linear-gradient(160deg, #2a5bff, #1e47d9);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 24px 60px -20px rgba(42, 91, 255, 0.55);
+}
+.won .when,
+.won p {
+  color: rgba(255, 255, 255, 0.85);
+}
+@media (max-width: 760px) {
+  .steps::before {
+    left: 38px;
+    right: auto;
+    top: 24px;
+    bottom: 24px;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, var(--line-2), var(--accent));
+    transform-origin: top;
+    animation-name: thread-down;
+  }
+}
+@keyframes thread-down {
+  from {
+    transform: scaleY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .steps::before {
+    animation: none;
+  }
+}

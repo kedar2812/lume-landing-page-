@@ -1,0 +1,52 @@
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vw, 16px);
+}
+.line {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(1.9rem, 1.1rem + 3.4vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 750;
+  color: var(--text-3);
+  text-wrap: balance;
+}
+.lines > :last-child .line {
+  color: var(--text);
+}
+.stat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 28px;
+  margin-top: clamp(48px, 7vw, 96px);
+  padding-top: clamp(28px, 4vw, 44px);
+  border-top: 1px solid var(--line);
+}
+.big {
+  font-size: clamp(5rem, 3rem + 10vw, 11rem);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  background: linear-gradient(180deg, var(--text), color-mix(in oklab, var(--accent) 70%, var(--text)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.what {
+  margin: 0;
+  max-width: 30ch;
+  font-size: var(--fs-lede);
+  color: var(--text-2);
+}
+.what sup a {
+  text-decoration: none;
+  padding: 0 2px;
+}
+.source {
+  margin: 18px 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
