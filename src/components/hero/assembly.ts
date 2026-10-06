@@ -90,3 +90,8 @@ export function heroFrame(p: number, n: number): HeroFrame {
     glow: 0.85 * settle + (settle >= 1 ? 0.15 : 0),
   };
 }
+
+/** Reduced motion: nothing travels — the finished screen under the headline, both buttons where they were. */
+export function stillFrame(n: number): HeroFrame {
+  return { ...heroFrame(1, n), headY: 0, headOpacity: 1, sweep: 0, ctas: 1, hint: false };
+}

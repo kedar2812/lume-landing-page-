@@ -13,7 +13,7 @@ import {
 } from "react";
 import { rectsFor } from "@/lib/screens";
 import { useReducedMotion } from "@/motion/useReducedMotion";
-import { heroFrame, pieces as cut } from "./assembly";
+import { heroFrame, pieces as cut, stillFrame } from "./assembly";
 import s from "./hero.module.css";
 
 const PHONE = "(max-width: 760px)";
@@ -48,7 +48,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
     () => cut(rectsFor("light", false) as Record<string, { x: number; y: number; w: number; h: number }>),
     [],
   );
-  const f = heroFrame(reduce ? 1 : p, ps.length);
+  const f = reduce ? stillFrame(ps.length) : heroFrame(p, ps.length);
 
   useMotionValueEvent(smooth, "change", (v) => setP(v));
   useEffect(() => {

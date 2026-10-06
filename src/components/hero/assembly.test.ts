@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { heroFrame, pieces } from "./assembly";
+import { heroFrame, pieces, stillFrame } from "./assembly";
 
 const RECTS = {
   greeting: { x: 296, y: 96, w: 1086, h: 64 },
@@ -46,5 +46,11 @@ describe("the hero at a point of the scroll", () => {
   });
   it("is the same at the same point whichever way you scrolled (reversible)", () => {
     expect(heroFrame(0.37, 9)).toEqual(heroFrame(0.37, 9));
+  });
+  it("under reduced motion: the finished screen, with the headline and both buttons fully there", () => {
+    const f = stillFrame(4);
+    expect(f.pieces.every((t) => t === 1)).toBe(true);
+    expect([f.base, f.tilt, f.scale]).toEqual([1, 0, 1]);
+    expect([f.headY, f.headOpacity, f.ctas, f.hint]).toEqual([0, 1, 1, false]);
   });
 });
