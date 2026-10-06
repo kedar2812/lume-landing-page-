@@ -219,12 +219,13 @@ function Dock({
 }) {
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
-  const close = () => {
-    setSheet(false);
-    requestAnimationFrame(() => button.current?.focus());
-  };
+  const close = () => setSheet(false);
+  // Open: focus goes into the sheet. Closed again: back to the button that opened it, in the same update.
+  const was = useRef(false);
   useEffect(() => {
     if (sheet) panel.current?.querySelector<HTMLElement>("a,button")?.focus();
+    else if (was.current) button.current?.focus();
+    was.current = sheet;
   }, [sheet]);
   const trap = (e: KeyboardEvent) => {
     if (e.key === "Escape") return close();

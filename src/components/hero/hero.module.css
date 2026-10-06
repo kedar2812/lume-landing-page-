@@ -1,0 +1,295 @@
+/* The hero (website spec §5.H): a plain ground, the headline, and Today built by the scroll. */
+.hero {
+  position: relative;
+}
+.track {
+  position: relative;
+  height: 280vh;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.glow {
+  position: absolute;
+  left: 50%;
+  bottom: -12vh;
+  width: min(1300px, 140vw);
+  height: 60vh;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(42, 91, 255, 0.24), rgba(42, 91, 255, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+:global(html[data-theme="dark"]) .glow {
+  background: radial-gradient(closest-side, rgba(42, 91, 255, 0.6), rgba(42, 91, 255, 0) 70%);
+}
+
+.head {
+  position: relative;
+  z-index: 4;
+  padding: clamp(96px, 13vh, 132px) var(--gutter) 0;
+  text-align: center;
+  will-change: transform, opacity;
+}
+.mark {
+  margin: 0 auto 18px;
+  width: clamp(44px, 4vw, 56px);
+  height: auto;
+}
+.h1 {
+  margin: 0 auto;
+  max-width: 14ch;
+  font-size: var(--fs-hero);
+  line-height: 0.98;
+  letter-spacing: var(--ls-hero);
+  font-weight: 800;
+  text-wrap: balance;
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* The light: LUME blue into sky, sweeping across the theme's text colour (both themes). */
+  background-image: linear-gradient(
+    100deg,
+    var(--text) 0%,
+    var(--text) 38%,
+    #2a5bff 48%,
+    #5ab8ff 50%,
+    #2a5bff 52%,
+    var(--text) 62%,
+    var(--text) 100%
+  );
+}
+.sub {
+  margin: 22px auto 0;
+  max-width: 40ch;
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+  color: var(--text-2);
+  text-wrap: balance;
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+  will-change: transform, opacity;
+}
+.book,
+.wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 100ms ease-out;
+}
+.book {
+  background: #2a5bff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 12px 40px rgba(42, 91, 255, 0.45);
+}
+.wa {
+  background: #25d366;
+  padding-left: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 12px 40px rgba(37, 211, 102, 0.42);
+}
+.book:active,
+.wa:active {
+  transform: scale(0.97);
+}
+
+/* The stage: Today in the other theme, its pieces placed in % so it's exact at any width. */
+.stageWrap {
+  position: absolute;
+  left: 50%;
+  top: clamp(430px, 52vh, 560px);
+  width: min(1152px, 92vw);
+  transform: translateX(-50%);
+  perspective: 1800px;
+  z-index: 3;
+}
+.stage {
+  position: relative;
+  aspect-ratio: 1440 / 900;
+  transform-origin: 50% 0;
+  border-radius: 18px;
+  will-change: transform;
+}
+.frame {
+  position: absolute;
+  inset: -10px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(12, 18, 32, 0.4));
+  box-shadow:
+    0 60px 140px rgba(12, 18, 32, 0.35),
+    0 0 120px rgba(42, 91, 255, 0.22);
+}
+:global(html[data-theme="dark"]) .frame {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 60px 160px rgba(0, 0, 0, 0.7),
+    0 0 160px rgba(42, 91, 255, 0.4);
+}
+/* The other theme's capture: Porcelain on the dark page, Obsidian on the light one. */
+.shot {
+  background-image: url(/screens/today-dark.webp);
+  background-repeat: no-repeat;
+}
+:global(html[data-theme="dark"]) .shot {
+  background-image: url(/screens/today-light.webp);
+}
+.base {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background-size: 100% 100%;
+}
+.piece {
+  position: absolute;
+  border-radius: 12px;
+  will-change: transform, opacity;
+}
+.whole {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.whole img,
+.device img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.invLight {
+  display: none !important;
+}
+:global(html[data-theme="dark"]) .invLight {
+  display: block !important;
+}
+:global(html[data-theme="dark"]) .invDark {
+  display: none !important;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.mouse {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1.5px solid currentColor;
+}
+.mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: wheel 1.6s ease-in-out infinite;
+}
+@keyframes wheel {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* A phone: the headline, then the phone Today rising with the scroll. */
+.phoneTrack {
+  position: relative;
+  height: 170vh;
+}
+.phoneSticky {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-bottom: 96px;
+}
+.phone .head {
+  padding-top: max(72px, env(safe-area-inset-top));
+}
+.phone .ctas {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 360px;
+  margin-inline: auto;
+}
+.device {
+  position: relative;
+  margin: 30px auto 0;
+  width: min(260px, 66vw);
+  padding: 7px;
+  border-radius: 40px;
+  background: #0b0c10;
+  box-shadow:
+    0 0 0 1.5px rgba(255, 255, 255, 0.08) inset,
+    0 40px 100px rgba(0, 0, 0, 0.5);
+  will-change: transform, opacity;
+}
+.device img {
+  border-radius: 33px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .phoneTrack {
+    height: auto;
+  }
+  .sticky,
+  .phoneSticky {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding-bottom: 64px;
+  }
+  .stageWrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 56px auto 0;
+  }
+  .mouse::after {
+    animation: none;
+  }
+}

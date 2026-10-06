@@ -1,4 +1,6 @@
 import { Chapter } from "@/components/Chapter";
+import { Hero } from "@/components/hero/Hero";
+import { Island } from "@/components/island/Island";
 import { SmoothScroll } from "@/motion/SmoothScroll";
 import { Actions } from "@/sections/Actions";
 import { Analytics } from "@/sections/Analytics";
@@ -21,8 +23,7 @@ const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP ?? "918805895066";
 /**
  * lumecrm.in as one story (website spec §5.0): the problems a sales-led business lives with, LUME's answer to each
  * in the same order, how a day runs with it, what changes for the business, the questions, then the enquiry. The
- * Island and the hero (W3 Tasks 5–6) take the top once their designs are approved; a plain headline holds the
- * place until then.
+ * Island and the hero are as approved on the canvas (spec §5.H).
  */
 export default function Home() {
   return (
@@ -31,19 +32,9 @@ export default function Home() {
         Skip to the page
       </a>
       <SmoothScroll />
+      <Island whatsapp={WHATSAPP} />
       <main id="main">
-        <header className="wrap" style={{ paddingBlock: "120px 40px" }}>
-          <h1
-            style={{
-              fontSize: "var(--fs-hero)",
-              letterSpacing: "var(--ls-hero)",
-              lineHeight: 0.98,
-              margin: 0,
-            }}
-          >
-            Every lead, answered while it’s still warm.
-          </h1>
-        </header>
+        <Hero whatsapp={WHATSAPP} />
 
         <Problems />
 
