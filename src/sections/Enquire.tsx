@@ -1,20 +1,21 @@
 "use client";
 import Image from "next/image";
 import { useId, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
+import { COUNTRIES, DIAL, flagOf } from "@/lib/countries";
 import { enquirySchema, TEAM_SIZES } from "@/lib/enquiry";
 import s from "./enquire.module.css";
 
-type Key = "name" | "business" | "whatsapp" | "email" | "teamSize" | "how" | "form";
+type Key = "name" | "business" | "country" | "whatsapp" | "email" | "teamSize" | "how" | "form";
 type Errors = Partial<Record<Key, string>>;
-const FIRST: Key[] = ["name", "whatsapp"];
 const noop = () => () => undefined;
 /** Back from a form posted without JavaScript (/?sent=1). */
 const sentBefore = () => new URLSearchParams(window.location.search).get("sent") === "1";
 
 /**
- * The enquiry (owner's redesign): two short steps — who you are, then your business. Without JavaScript it is one
- * plain form that posts to /api/enquire; with it, sent with fetch. If both of the server's ways are down,
- * WhatsApp opens with the visitor's details written.
+ * The enquiry (owner's redesign): seven questions in one calm card, the country code picked from every country so
+ * the number lands on the licence dashboard whole. A plain form that posts to /api/enquire (it works without
+ * JavaScript), sent with fetch when it can; if the dashboard is down, WhatsApp opens with the details written.
+ * LUME speaks, never a person.
  */
 export function Enquire({
   whatsapp,
@@ -27,18 +28,10 @@ export function Enquire({
   const [t0] = useState(() => Date.now());
   const [errors, setErrors] = useState<Errors>({});
   const [team, setTeam] = useState("");
+  const [country, setCountry] = useState("IN");
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
-  const [step, setStep] = useState<1 | 2>(1);
-  const js = useSyncExternalStore(
-    noop,
-    () => true,
-    () => false,
-  );
   const returned = useSyncExternalStore(noop, sentBefore, () => false);
   const shown = whatsapp.replace(/^91(\d{5})(\d{5})$/, "+91 $1 $2");
-
-  const focus = (form: HTMLFormElement, name: string) =>
-    requestAnimationFrame(() => form.querySelector<HTMLElement>(`[name="${name}"]`)?.focus());
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -49,8 +42,7 @@ export function Enquire({
       const next: Errors = {};
       for (const i of p.error.issues) next[String(i.path[0]) as Key] ??= i.message;
       setErrors(next);
-      if (Object.keys(next).some((k) => FIRST.includes(k as Key))) setStep(1);
-      focus(form, Object.keys(next)[0]!);
+      form.querySelector<HTMLElement>(`[name="${Object.keys(next)[0]}"]`)?.focus();
       return;
     }
     setErrors({});
@@ -71,44 +63,26 @@ export function Enquire({
     setState("idle");
   }
 
-  /** Step one asks only who you are; the rest waits until that's right. */
-  function next(form: HTMLFormElement | null) {
-    if (!form) return;
-    const p = enquirySchema.safeParse(Object.fromEntries(new FormData(form).entries()));
-    const mine: Errors = {};
-    if (!p.success)
-      for (const i of p.error.issues)
-        if (FIRST.includes(String(i.path[0]) as Key)) mine[String(i.path[0]) as Key] ??= i.message;
-    setErrors(mine);
-    if (Object.keys(mine).length) {
-      form.querySelector<HTMLElement>(`[name="${Object.keys(mine)[0]}"]`)?.focus();
-      return;
-    }
-    setStep(2);
-    focus(form, "business");
-  }
-
   const aria = (name: Key) => ({
     id: `${id}-${name}`,
     name,
     "aria-invalid": errors[name] ? true : undefined,
     "aria-describedby": errors[name] ? `${id}-${name}-err` : undefined,
   });
-  const field = (name: Key, label: string, input: ReactNode) => (
-    <div className={s.field} data-invalid={errors[name] ? "" : undefined}>
+  const err = (name: Key) =>
+    errors[name] && (
+      <p id={`${id}-${name}-err`} className={s.err}>
+        {errors[name]}
+      </p>
+    );
+  const field = (name: Key, label: string, input: ReactNode, wide = false) => (
+    <div className={`${s.field} ${wide ? s.wide : ""}`} data-invalid={errors[name] ? "" : undefined}>
       <label htmlFor={`${id}-${name}`}>{label}</label>
       {input}
-      {errors[name] && (
-        <p id={`${id}-${name}-err`} className={s.err}>
-          {errors[name]}
-        </p>
-      )}
+      {err(name)}
     </div>
   );
 
-  // Without JavaScript both steps show as one form; with it, one step at a time.
-  const hideFirst = js && step === 2;
-  const hideSecond = js && step === 1;
   return (
     <section id="enquire" className={s.section} aria-labelledby={`${id}-h`}>
       <div className={`wrap ${s.grid}`}>
@@ -118,10 +92,11 @@ export function Enquire({
             See LUME on your own leads.
           </h2>
           <p className={s.lede}>
-            LUME’s founder walks you through it on a business like yours, and replies on WhatsApp.
+            Tell LUME about your business and how leads reach you. LUME replies on WhatsApp to set up a demo
+            shaped around how your team sells.
           </p>
           <ul className={s.promise}>
-            <li>Two short steps, under a minute</li>
+            <li>One short form</li>
             <li>No payment details</li>
             <li>Your number is used only to reply</li>
           </ul>
@@ -147,7 +122,7 @@ export function Enquire({
                 </svg>
               </span>
               <p className={s.sentTitle}>Thank you.</p>
-              <p>LUME’s founder will message you on WhatsApp soon.</p>
+              <p>LUME will reply on WhatsApp to set up your demo.</p>
             </div>
           ) : (
             <form
@@ -158,62 +133,83 @@ export function Enquire({
               noValidate
               onSubmit={submit}
             >
-              {js && (
-                <div className={s.steps} aria-hidden="true">
-                  <span data-on="" />
-                  <span data-on={step === 2 || undefined} />
-                  <em>Step {step} of 2</em>
+              {field("name", "Your name", <input {...aria("name")} autoComplete="name" />)}
+              {field("business", "Business", <input {...aria("business")} autoComplete="organization" />)}
+              <div className={`${s.field} ${s.wide}`} data-invalid={errors.whatsapp ? "" : undefined}>
+                <div className={s.phoneLabels}>
+                  <label htmlFor={`${id}-country`}>Country code</label>
+                  <label htmlFor={`${id}-whatsapp`}>WhatsApp number</label>
                 </div>
-              )}
-              <div className={s.group} hidden={hideFirst}>
-                {field(
-                  "name",
-                  "Your name",
-                  <input {...aria("name")} autoComplete="name" placeholder="Ananya Rao" />,
-                )}
-                {field(
-                  "whatsapp",
-                  "WhatsApp number",
+                <div className={s.phone}>
+                  {/* The picker shows a flag and code; the native list holds every country. */}
+                  <span className={s.code}>
+                    <span aria-hidden="true">{flagOf(country)}</span>
+                    <span data-testid="dial">+{DIAL[country]}</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="14"
+                      height="14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                    <select
+                      {...aria("country")}
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      autoComplete="tel-country-code"
+                    >
+                      {COUNTRIES.map((c) => (
+                        <option key={c.iso} value={c.iso}>
+                          {c.name} (+{c.dial})
+                        </option>
+                      ))}
+                    </select>
+                  </span>
                   <input
                     {...aria("whatsapp")}
                     type="tel"
                     inputMode="tel"
-                    autoComplete="tel"
-                    placeholder="98123 45678"
-                  />,
-                )}
-                <p className={s.hint}>Outside India? Start with + and the country code.</p>
+                    autoComplete="tel-national"
+                    placeholder={country === "IN" ? "98123 45678" : ""}
+                  />
+                </div>
+                {err("whatsapp")}
               </div>
-              <div className={s.group} hidden={hideSecond}>
-                {field(
-                  "business",
-                  "Business",
-                  <input
-                    {...aria("business")}
-                    autoComplete="organization"
-                    placeholder="Your business’s name"
-                  />,
-                )}
-                <fieldset className={s.field} data-invalid={errors.teamSize ? "" : undefined}>
-                  <legend id={`${id}-team`}>Team size</legend>
-                  <div role="radiogroup" aria-labelledby={`${id}-team`} className={s.chips}>
-                    {TEAM_SIZES.map((t) => (
-                      <label key={t.id} className={s.chip}>
-                        <input
-                          type="radio"
-                          name="teamSize"
-                          value={t.id}
-                          checked={team === t.id}
-                          onChange={() => setTeam(t.id)}
-                          aria-label={t.label}
-                        />
-                        <span aria-hidden="true">{t.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                  {errors.teamSize && <p className={s.err}>{errors.teamSize}</p>}
-                </fieldset>
-              </div>
+              {field(
+                "email",
+                "Email (optional)",
+                <input {...aria("email")} type="email" autoComplete="email" />,
+                true,
+              )}
+              <fieldset className={`${s.field} ${s.wide}`} data-invalid={errors.teamSize ? "" : undefined}>
+                <legend id={`${id}-team`}>Team size</legend>
+                <div role="radiogroup" aria-labelledby={`${id}-team`} className={s.chips}>
+                  {TEAM_SIZES.map((t) => (
+                    <label key={t.id} className={s.chip}>
+                      <input
+                        type="radio"
+                        name="teamSize"
+                        value={t.id}
+                        checked={team === t.id}
+                        onChange={() => setTeam(t.id)}
+                        aria-label={t.label}
+                      />
+                      <span aria-hidden="true">{t.label}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.teamSize && <p className={s.err}>{errors.teamSize}</p>}
+              </fieldset>
+              {field(
+                "how",
+                "How do leads reach you today? (optional)",
+                <input {...aria("how")} placeholder="Instagram, a Google Form, walk-ins…" />,
+                true,
+              )}
               {/* For bots only: people never see it. */}
               <label className="sr-only" aria-hidden="true">
                 Leave this empty
@@ -221,28 +217,13 @@ export function Enquire({
               </label>
               <input type="hidden" name="t" value="5000" />
               {errors.form && (
-                <p className={s.err} role="alert">
+                <p className={`${s.err} ${s.wide}`} role="alert">
                   {errors.form}
                 </p>
               )}
-              <div className={s.actions}>
-                {hideSecond ? (
-                  <button className={s.send} type="button" onClick={(e) => next(e.currentTarget.form)}>
-                    Continue
-                  </button>
-                ) : (
-                  <>
-                    {js && (
-                      <button className={s.back} type="button" onClick={() => setStep(1)}>
-                        Back
-                      </button>
-                    )}
-                    <button className={s.send} type="submit" disabled={state === "sending"}>
-                      {state === "sending" ? "Sending…" : "Book my demo"}
-                    </button>
-                  </>
-                )}
-              </div>
+              <button className={`${s.send} ${s.wide}`} type="submit" disabled={state === "sending"}>
+                {state === "sending" ? "Sending…" : "Book my demo"}
+              </button>
             </form>
           )}
         </div>

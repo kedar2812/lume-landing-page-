@@ -13,18 +13,16 @@ const OK = {
 const ENV = {
   LICENCE_URL: "https://licence.test",
   ENQUIRY_TOKEN: "tok-secret-123",
-  RESEND_API_KEY: "re_secret_456",
-  ENQUIRY_TO: "owner@example.com",
   NEXT_PUBLIC_WHATSAPP: "918805895066",
 };
 let calls: string[] = [];
-const mockFetch = (o: { licence: number; resend: number }) => {
+const mockFetch = (o: { licence: number }) => {
   calls = [];
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) => {
       calls.push(url);
-      return new Response("{}", { status: url.includes("resend") ? o.resend : o.licence });
+      return new Response("{}", { status: o.licence });
     }),
   );
 };
@@ -51,16 +49,13 @@ afterEach(() => {
 });
 
 describe("POST /api/enquire (website spec §8)", () => {
-  it("files with the licence dashboard and emails the owner; either alone is enough", async () => {
-    mockFetch({ licence: 201, resend: 200 });
-    expect(await (await POST(req(OK))).json()).toEqual({ ok: true, filed: true, emailed: true });
-    mockFetch({ licence: 500, resend: 200 });
-    expect(await (await POST(req(OK))).json()).toEqual({ ok: true, filed: false, emailed: true });
-    mockFetch({ licence: 201, resend: 500 });
-    expect(await (await POST(req(OK))).json()).toEqual({ ok: true, filed: true, emailed: false });
+  it("files with the licence dashboard, and sends nothing anywhere else", async () => {
+    mockFetch({ licence: 201 });
+    expect(await (await POST(req(OK))).json()).toEqual({ ok: true, filed: true });
+    expect(calls).toEqual(["https://licence.test/v1/enquiries"]);
   });
   it("sends the licence dashboard exactly the enquiry, with the token", async () => {
-    mockFetch({ licence: 201, resend: 200 });
+    mockFetch({ licence: 201 });
     await POST(req({ ...OK, email: "a@example.com", how: "Instagram" }));
     const f = vi.mocked(fetch);
     const [url, init] = f.mock.calls.find(([u]) => String(u).includes("licence"))!;
@@ -75,8 +70,8 @@ describe("POST /api/enquire (website spec §8)", () => {
       how: "Instagram",
     });
   });
-  it("both down: says so and hands back WhatsApp with the details written", async () => {
-    mockFetch({ licence: 500, resend: 500 });
+  it("the dashboard down: says so and hands back WhatsApp with the details written", async () => {
+    mockFetch({ licence: 500 });
     const r = await POST(req(OK));
     expect(r.status).toBe(502);
     const { whatsapp } = (await r.json()) as { whatsapp: string };
@@ -84,33 +79,33 @@ describe("POST /api/enquire (website spec §8)", () => {
     expect(decodeURIComponent(whatsapp)).toContain("Petal & Plate Studio");
   });
   it("a bot is thanked and dropped: the hidden field filled, or sent in under 3 seconds", async () => {
-    mockFetch({ licence: 201, resend: 200 });
+    mockFetch({ licence: 201 });
     expect((await POST(req({ ...OK, website: "spam.example" }))).status).toBe(200);
     expect((await POST(req({ ...OK, t: 800 }))).status).toBe(200);
     expect(calls).toHaveLength(0);
   });
   it("what isn't an enquiry is refused, in words, per field", async () => {
-    mockFetch({ licence: 201, resend: 200 });
+    mockFetch({ licence: 201 });
     const r = await POST(req({ ...OK, whatsapp: "123" }));
     expect(r.status).toBe(400);
     expect(await r.json()).toMatchObject({ errors: { whatsapp: expect.any(String) } });
   });
   it("a form posted without JavaScript comes back to the form", async () => {
-    mockFetch({ licence: 201, resend: 200 });
+    mockFetch({ licence: 201 });
     const r = await POST(formReq(OK));
     expect([r.status, r.headers.get("location")]).toEqual([303, "/?sent=1#enquire"]);
-    mockFetch({ licence: 500, resend: 500 });
+    mockFetch({ licence: 500 });
     const down = await POST(formReq(OK));
     expect(down.headers.get("location")).toMatch(/^https:\/\/wa\.me\/918805895066/);
   });
-  it("never hands the owner's email or the keys to the browser, and never logs them", async () => {
+  it("never hands the token to the browser, and never logs it or what was sent", async () => {
     const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
     const err = vi.spyOn(console, "error").mockImplementation(() => undefined);
-    mockFetch({ licence: 500, resend: 500 });
+    mockFetch({ licence: 500 });
     const body = await (await POST(req(OK))).text();
     const printed = JSON.stringify([log.mock.calls, err.mock.calls]);
-    for (const secret of ["owner@example.com", "tok-secret-123", "re_secret_456"]) {
-      expect(body).not.toContain(secret);
+    for (const secret of ["tok-secret-123", "Petal & Plate Studio", "9812345678"]) {
+      if (secret.startsWith("tok")) expect(body).not.toContain(secret);
       expect(printed).not.toContain(secret);
     }
   });

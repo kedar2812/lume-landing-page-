@@ -5,9 +5,9 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 580px);
   gap: clamp(32px, 6vw, 96px);
-  align-items: center;
+  align-items: start;
 }
 .eyebrow {
   margin: 0;
@@ -101,42 +101,11 @@
 }
 .form {
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 14px;
 }
-.steps {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.steps span {
-  width: 28px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--line-2);
-  transition: background 300ms var(--ease);
-}
-.steps span[data-on] {
-  background: #2a5bff;
-}
-.steps em {
-  margin-left: 8px;
-  font-style: normal;
-  font-size: var(--fs-sm);
-  color: var(--text-2);
-}
-.group {
-  display: grid;
-  gap: 16px;
-  animation: enter 360ms var(--ease) both;
-}
-.group[hidden] {
-  display: none;
-}
-@keyframes enter {
-  from {
-    opacity: 0;
-    transform: translateX(14px);
-  }
+.wide {
+  grid-column: 1 / -1;
 }
 .field {
   display: flex;
@@ -184,11 +153,6 @@
   border-color: #e5484d;
   box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.14);
 }
-.hint {
-  margin: -6px 0 0;
-  font-size: var(--fs-sm);
-  color: var(--text-3);
-}
 .err {
   margin: 0;
   font-size: var(--fs-sm);
@@ -235,13 +199,7 @@
   outline: 2px solid #2a5bff;
   outline-offset: 3px;
 }
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 4px;
-}
-.send,
-.back {
+.send {
   min-height: 52px;
   border-radius: 999px;
   font: inherit;
@@ -250,7 +208,7 @@
   transition: transform 100ms ease-out;
 }
 .send {
-  flex: 1;
+  margin-top: 4px;
   border: 0;
   background: #2a5bff;
   color: #fff;
@@ -258,14 +216,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     0 12px 32px rgba(42, 91, 255, 0.35);
 }
-.back {
-  padding: 0 20px;
-  border: 1px solid var(--line-2);
-  background: transparent;
-  color: var(--text);
-}
-.send:active,
-.back:active {
+.send:active {
   transform: scale(0.98);
 }
 .send:disabled {
@@ -297,13 +248,55 @@
   font-weight: 800;
   color: var(--text);
 }
+/* The number: the country's flag and code (a native list of every country under it), then the number. */
+.phoneLabels,
+.phone {
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 8px;
+}
+.code {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 12px 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line-2);
+  background: color-mix(in oklab, var(--bg) 60%, var(--surface));
+  font-weight: 600;
+  transition:
+    border-color 160ms var(--ease),
+    box-shadow 160ms var(--ease);
+}
+.code svg {
+  margin-left: auto;
+  opacity: 0.55;
+}
+.code select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+.code:focus-within {
+  border-color: #2a5bff;
+  box-shadow: 0 0 0 4px rgba(42, 91, 255, 0.18);
+}
 @media (max-width: 860px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .group {
-    animation: none;
+@media (max-width: 520px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .phoneLabels,
+  .phone {
+    grid-template-columns: 108px minmax(0, 1fr);
   }
 }

@@ -63,7 +63,6 @@ export function Island({ whatsapp }: { whatsapp: string }) {
   const [note, setNote] = useState<string | null>(null);
   const [heroBuilding, setHeroBuilding] = useState(false);
   const [sheet, setSheet] = useState(false);
-  const hover = useRef(0);
   const shape: IslandShape = islandState({ y, heroBuilding, notifying: !!note, phone, open });
 
   useEffect(() => {
@@ -120,15 +119,6 @@ export function Island({ whatsapp }: { whatsapp: string }) {
         data-state={shape}
         className={s.island}
         style={{ "--w": `${width}px` } as CSSProperties}
-        onPointerEnter={() => {
-          window.clearTimeout(hover.current);
-          // A short pause first, so passing the pointer over the top of the page doesn't flick it open.
-          if (y > 24) hover.current = window.setTimeout(() => setOpen(true), 140);
-        }}
-        onPointerLeave={() => {
-          window.clearTimeout(hover.current);
-          setOpen(false);
-        }}
         onFocus={() => setOpen(true)}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setOpen(false)}
         onKeyDown={(e: KeyboardEvent) => e.key === "Escape" && setOpen(false)}
@@ -171,7 +161,9 @@ export function Island({ whatsapp }: { whatsapp: string }) {
             <Progress p={p} ring={ring} />
             <Image src="/lume-mark.png" alt="" width={18} height={18} />
           </a>
-          <span className={s.section}>{label}</span>
+          <span className={s.section}>
+            <span key={label}>{label}</span>
+          </span>
           <a className={s.wa} href={wa}>
             <Image src="/brand/whatsapp-glyph-white.svg" alt="" width={18} height={18} />
             WhatsApp

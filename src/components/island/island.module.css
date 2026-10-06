@@ -18,38 +18,40 @@
   overflow: hidden;
   isolation: isolate;
   pointer-events: auto;
-  -webkit-backdrop-filter: blur(26px) saturate(210%) brightness(1.04);
-  backdrop-filter: blur(26px) saturate(210%) brightness(1.04);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.38));
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  /* Frosted glass: enough body that what scrolls beneath never reaches the words. */
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  background: rgba(250, 250, 252, 0.86);
+  border: 1px solid rgba(12, 18, 32, 0.08);
   box-shadow:
-    inset 0 1px 0 #fff,
-    inset 0 -1px 0 rgba(12, 18, 32, 0.05),
-    inset 0 0 18px rgba(255, 255, 255, 0.5),
-    0 14px 40px rgba(12, 18, 32, 0.14),
-    0 0 0 0.5px rgba(12, 18, 32, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 10px 30px rgba(12, 18, 32, 0.1);
   color: var(--text);
-  transition:
-    width 720ms var(--ease-morph),
-    border-radius 720ms var(--ease-morph),
-    box-shadow 500ms ease;
+  transition: width 560ms var(--ease-morph);
 }
 :global(html[data-theme="dark"]) .island {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035));
-  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(22, 24, 30, 0.84);
+  border-color: rgba(255, 255, 255, 0.08);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.38),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    inset 0 0 18px rgba(255, 255, 255, 0.05),
-    0 14px 44px rgba(0, 0, 0, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 36px rgba(0, 0, 0, 0.45);
 }
-/* Each layer is its own content's width, centred on the pill: the pill measures it, and the outgoing layer clips
-   evenly on both sides as the pill morphs (never sized by the pill itself, or the morph chases its own width). */
+@media (prefers-reduced-transparency: reduce) {
+  .island {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+/* Each layer is its own content's width, centred by margins (no transforms, so text never re-rasterises and
+   never shimmers); layers trade places with a plain cross-fade while the pill changes width. */
 .layer {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   width: max-content;
   display: flex;
   align-items: center;
@@ -57,20 +59,19 @@
   padding: 0 7px 0 14px;
   white-space: nowrap;
   opacity: 0;
-  transform: translateX(-50%) scale(0.94);
-  filter: blur(7px);
+  visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 420ms var(--ease-morph),
-    transform 620ms var(--ease-morph),
-    filter 420ms var(--ease-morph);
+    opacity 220ms ease,
+    visibility 0s linear 220ms;
 }
 .layer[data-on] {
   opacity: 1;
-  transform: translateX(-50%);
-  filter: none;
+  visibility: visible;
   pointer-events: auto;
-  transition-delay: 120ms;
+  transition:
+    opacity 280ms ease 140ms,
+    visibility 0s;
 }
 .brand {
   display: inline-flex;
@@ -158,10 +159,23 @@
   stroke-linecap: round;
   transition: stroke-dashoffset 120ms linear;
 }
+/* A fixed width, so the pill never changes size (or moves its buttons) as you pass from section to section. */
 .section {
+  width: 112px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 600;
   margin-right: auto;
+}
+.section > span {
+  display: inline-block;
+  animation: label-in 260ms ease both;
+}
+@keyframes label-in {
+  from {
+    opacity: 0;
+  }
 }
 .note {
   display: flex;
@@ -217,8 +231,7 @@
   cursor: pointer;
 }
 .menu .section {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: auto;
 }
 .chev {
   margin-left: auto;

@@ -131,6 +131,7 @@
   transform-origin: 50% 0;
   border-radius: 18px;
   will-change: transform;
+  backface-visibility: hidden;
 }
 .frame {
   position: absolute;
@@ -164,7 +165,6 @@
 .piece {
   position: absolute;
   border-radius: 12px;
-  will-change: transform, opacity;
 }
 .whole {
   position: absolute;

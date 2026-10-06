@@ -26,20 +26,27 @@ test("scrolling away: wide → compact settles within a second and holds still",
   expect(w[0]!).toBeLessThan(wide * 0.6);
 });
 
-test("hover opens it wide, leaving closes it back to compact, both settle", async ({ page }) => {
+test("scrolling through the sections and hovering: the pill and its buttons hold perfectly still", async ({
+  page,
+}) => {
   await page.goto("/");
   const nav = page.locator("nav[aria-label='Main']");
-  await page.evaluate(() => window.scrollTo(0, 6000));
-  await page.waitForTimeout(4000);
-  const compact = (await settles(nav))[0]!;
+  await page.evaluate(() => window.scrollTo(0, 4000));
+  await page.waitForTimeout(3000);
+  const box = async () =>
+    nav.evaluate((n) => {
+      const r = n.getBoundingClientRect();
+      const b = [...n.querySelectorAll("[data-on] a")].at(-1)!.getBoundingClientRect();
+      return `${Math.round(r.left)},${Math.round(r.width)}|${Math.round(b.left)}`;
+    });
+  const seen = new Set<string>();
+  for (let y = 4000; y < 9000; y += 250) {
+    await page.mouse.wheel(0, 250);
+    await page.waitForTimeout(80);
+    seen.add(await box());
+  }
   await page.mouse.move(720, 40);
-  await page.waitForTimeout(4000);
-  const open = await settles(nav);
-  expect(Math.max(...open) - Math.min(...open), `still moving: ${open.join(",")}`).toBeLessThanOrEqual(1);
-  expect(open[0]!).toBeGreaterThan(compact * 1.6);
-  await page.mouse.move(720, 600);
-  await page.waitForTimeout(4000);
-  const back = await settles(nav);
-  expect(Math.max(...back) - Math.min(...back), `still moving: ${back.join(",")}`).toBeLessThanOrEqual(1);
-  expect(Math.abs(back.at(-1)! - compact)).toBeLessThanOrEqual(1);
+  await page.waitForTimeout(600);
+  seen.add(await box());
+  expect([...seen], "the pill moved").toHaveLength(1);
 });

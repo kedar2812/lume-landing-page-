@@ -49,6 +49,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
     [],
   );
   const f = reduce ? stillFrame(ps.length) : heroFrame(p, ps.length);
+  const settled = f.tilt < 0.01 && f.scale > 0.9999;
 
   useMotionValueEvent(smooth, "change", (v) => setP(v));
   useEffect(() => {
@@ -153,7 +154,12 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
             <div
               ref={stage}
               className={s.stage}
-              style={{ transform: `rotateX(${f.tilt}deg) scale(${f.scale})` } as CSSProperties}
+              style={
+                // Built: no transform and no layer hint, so the browser paints the capture at full sharpness.
+                (settled
+                  ? { transform: "none", willChange: "auto" }
+                  : { transform: `rotateX(${f.tilt}deg) scale(${f.scale})` }) as CSSProperties
+              }
             >
               <div
                 className={s.frame}
@@ -203,7 +209,9 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
                           opacity: Math.min(1, t * 2.2),
                           transform: `translate(${pc.from.x * away * k}px, ${pc.from.y * away * k}px) rotate(${pc.from.rotate * away}deg) scale(${0.9 + 0.1 * t})`,
                           boxShadow: `0 18px 50px rgba(0,0,0,${(0.35 * away + 0.05).toFixed(2)})`,
-                          visibility: t <= 0 ? "hidden" : "visible",
+                          // Home: the whole capture under it shows instead, so no slice ever doubles the text.
+                          visibility: t <= 0 || (t >= 1 && f.base >= 1) ? "hidden" : "visible",
+                          willChange: t > 0 && t < 1 ? "transform, opacity" : "auto",
                         }}
                       />
                     );
