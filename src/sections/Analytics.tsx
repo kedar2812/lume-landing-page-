@@ -1,4 +1,5 @@
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import s from "./analytics.module.css";
 
 /**
@@ -16,6 +17,7 @@ export function Analytics() {
   return (
     <section id="analytics" className={s.section} aria-labelledby="analytics-h">
       <div className="wrap">
+        <Solves n={5} />
         <div className={s.card}>
           <Screen
             name="overview"

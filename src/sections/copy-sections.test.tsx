@@ -1,18 +1,21 @@
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/lib/screens", () => ({
+  SCREENS: new Proxy({}, { get: () => ({ width: 2880, height: 1800, phone: false }) }),
+  srcOf: (n: string, t: string) => `/screens/${n}-${t}.webp`,
+}));
 import { Faq } from "./Faq";
 import { Footer } from "./Footer";
 import { LeadsDay } from "./LeadsDay";
 import { OwnServer } from "./OwnServer";
-import { Problem } from "./Problem";
 import { Sources } from "./Sources";
 
 describe("the sections told in words (website spec §5)", () => {
-  it("sources: where leads already come from, official logos only where LUME ships them", () => {
+  it("answer 01: every lead in one list, from where they already come; official logos only where LUME ships them", () => {
     render(<Sources />);
-    expect(
-      screen.getByRole("heading", { name: "Leads arrive from where you already are" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Every lead in one list." })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Solves 01/ })).toHaveAttribute("href", "#problem-01");
     const list = screen.getByRole("list", { name: "Lead sources" });
     expect(
       within(list)
@@ -27,19 +30,6 @@ describe("the sections told in words (website spec §5)", () => {
       "A spreadsheet you already have",
     ]);
     expect(screen.queryByText(/IndiaMART|JustDial/)).not.toBeInTheDocument();
-  });
-
-  it("the problem: three lines, then the one study, with its source", () => {
-    render(<Problem />);
-    expect(screen.getByText("Your leads are in five places.")).toBeInTheDocument();
-    expect(screen.getByText("The first reply comes days later.")).toBeInTheDocument();
-    expect(
-      screen.getByText(/when your best salesperson leaves, the leads go with their phone/),
-    ).toBeInTheDocument();
-    expect(screen.getByText("21×")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Oldroyd, Lead Response Management Study, MIT and InsideSales, 2007/),
-    ).toBeInTheDocument();
   });
 
   it("a lead's day: four steps, in order", () => {

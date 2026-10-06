@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import { Reveal } from "@/motion/Reveal";
 import x from "./section.module.css";
 import s from "./followup.module.css";
@@ -16,7 +17,7 @@ export function FollowUp() {
     <section id="follow-up" className={x.section} aria-labelledby="follow-up-h">
       <div className={`wrap ${s.row}`}>
         <div className={s.copy}>
-          <p className={x.eyebrow}>Follow-up</p>
+          <Solves n={2} />
           <h2 id="follow-up-h" className={x.h2}>
             Nobody waits. Nothing slips.
           </h2>

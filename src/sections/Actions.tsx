@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import type { ScreenName } from "@/lib/screens";
 import x from "./section.module.css";
 import s from "./actions.module.css";
@@ -84,7 +85,7 @@ export function Actions() {
   return (
     <section id="actions" className={x.section} aria-labelledby="actions-h">
       <div className="wrap">
-        <p className={x.eyebrow}>In a day’s work</p>
+        <Solves n={3} />
         <h2 id="actions-h" className={x.h2}>
           What your team does in LUME.
         </h2>

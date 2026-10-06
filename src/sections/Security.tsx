@@ -1,4 +1,5 @@
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import { Reveal } from "@/motion/Reveal";
 import x from "./section.module.css";
 import s from "./security.module.css";
@@ -30,7 +31,7 @@ export function Security() {
       <div className="wrap">
         <div className={s.head}>
           <div>
-            <p className={x.eyebrow}>Security</p>
+            <Solves n={6} />
             <h2 id="security-h" className={x.h2}>
               When someone leaves, your leads don’t.
             </h2>

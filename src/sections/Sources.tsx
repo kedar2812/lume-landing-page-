@@ -1,8 +1,14 @@
 import Image from "next/image";
+import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
+import { Reveal } from "@/motion/Reveal";
 import x from "./section.module.css";
 import s from "./sources.module.css";
 
-/** Where leads already come from (website spec §5, item 3). Official logos only where LUME ships them. */
+/**
+ * Answer 01 (website spec §5.0): every lead in one list, from wherever it came. Official logos only where LUME
+ * ships them; the others by name.
+ */
 const SOURCES: { label: string; logo?: string }[] = [
   { label: "Instagram & Facebook forms" },
   { label: "Your website" },
@@ -14,11 +20,16 @@ const SOURCES: { label: string; logo?: string }[] = [
 
 export function Sources() {
   return (
-    <section id="sources" className={`${x.section} ${x.tight} ${x.center}`} aria-labelledby="sources-h">
+    <section id="one-list" className={x.section} aria-labelledby="one-list-h">
       <div className="wrap">
-        <h2 id="sources-h" className={s.h}>
-          Leads arrive from where you already are
+        <Solves n={1} />
+        <h2 id="one-list-h" className={x.h2}>
+          Every lead in one list.
         </h2>
+        <p className={x.lede}>
+          Wherever an enquiry starts, it lands in LUME within moments: duplicates caught, phone numbers fixed,
+          and the person it belongs to already told.
+        </p>
         <ul className={s.list} aria-label="Lead sources">
           {SOURCES.map((src, i) => (
             <li key={src.label} className={s.chip} style={{ "--i": i } as React.CSSProperties}>
@@ -27,6 +38,9 @@ export function Sources() {
             </li>
           ))}
         </ul>
+        <Reveal className={s.shot} y={40}>
+          <Screen name="leads" alt="LUME's leads: every enquiry in one list, with its stage and owner" />
+        </Reveal>
       </div>
     </section>
   );

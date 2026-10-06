@@ -1,4 +1,5 @@
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import { Reveal } from "@/motion/Reveal";
 import x from "./section.module.css";
 import s from "./rep.module.css";
@@ -27,7 +28,7 @@ export function RepDashboards() {
   return (
     <section id="team" className={x.section} aria-labelledby="team-h">
       <div className="wrap">
-        <p className={x.eyebrow}>Every rep, their own dashboard</p>
+        <Solves n={4} />
         <h2 id="team-h" className={x.h2}>
           Each rep sees their own day and numbers. You see everyone’s.
         </h2>

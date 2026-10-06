@@ -1,4 +1,5 @@
 import { Screen } from "@/components/Screen";
+import { Solves } from "@/components/Solves";
 import type { ScreenName } from "@/lib/screens";
 import x from "./section.module.css";
 import s from "./caught.module.css";
@@ -38,7 +39,7 @@ export function CaughtEarly() {
   return (
     <section id="caught" className={x.section} aria-labelledby="caught-h">
       <div className="wrap">
-        <p className={x.eyebrow}>Caught early</p>
+        <Solves n={5} />
         <h2 id="caught-h" className={x.h2}>
           LUME spots trouble before it costs you.
         </h2>
