@@ -1,6 +1,6 @@
 /*
  * The site's two looks, LUME's own (Porcelain and Obsidian): the same blue in both, meetings' sky as its touch,
- * no violet anywhere. Dark is the cinematic ground of direction A (#07080B). The theme script sets
+ * no violet anywhere. Dark is LUME's own Obsidian canvas (#141518), the same black as the app. The theme script sets
  * data-theme on <html> before first paint; with no choice the system's wins.
  */
 :root,
@@ -38,10 +38,10 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --ground: #07080b;
-  --ground-2: #0c0e13;
-  --surface: #14161b;
-  --surface-2: #1b1e24;
+  --ground: #141518;
+  --ground-2: #18191c;
+  --surface: #212328;
+  --surface-2: #2a2c32;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
   --text: #f4f5f7;
@@ -72,10 +72,10 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --ground: #07080b;
-    --ground-2: #0c0e13;
-    --surface: #14161b;
-    --surface-2: #1b1e24;
+    --ground: #141518;
+    --ground-2: #18191c;
+    --surface: #212328;
+    --surface-2: #2a2c32;
     --line: rgba(255, 255, 255, 0.08);
     --line-2: rgba(255, 255, 255, 0.14);
     --text: #f4f5f7;

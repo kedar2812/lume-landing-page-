@@ -1,18 +1,20 @@
 /* Analytics, built by the scroll: pinned like the hero, LUME's Overview assembling under one line. */
 .track {
   position: relative;
-  height: 320vh;
+}
+.spacer {
+  height: 200vh;
 }
 .sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: clamp(84px, 11vh, 120px);
+  padding-top: 84px;
 }
 .head {
   text-align: center;
@@ -35,9 +37,10 @@
   font-weight: 800;
   text-wrap: balance;
 }
+/* LUME at ~94% of its own size on a laptop: readable; taller than the window is fine, it scrolls on once built. */
 .stageWrap {
-  margin-top: clamp(20px, 3.5vh, 36px);
-  width: min(1120px, 90vw, calc((100svh - 260px) * 1.6));
+  margin-top: 26px;
+  width: min(1360px, 94vw);
 }
 .stage {
   position: relative;
@@ -99,8 +102,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track {
-    height: auto;
+  .spacer {
+    display: none;
   }
   .sticky {
     position: relative;

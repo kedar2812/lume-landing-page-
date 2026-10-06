@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Inter } from "next/font/google";
+import { ScrollBar } from "@/components/ScrollBar";
 import type { ReactNode } from "react";
 import { structuredData } from "@/lib/structured-data";
 import { themeScript } from "@/theme/theme-script";
@@ -33,7 +34,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f5f6f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#07080b" },
+    { media: "(prefers-color-scheme: dark)", color: "#141518" },
   ],
 };
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <ScrollBar />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()) }}

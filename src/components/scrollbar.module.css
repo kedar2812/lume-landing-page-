@@ -1,0 +1,45 @@
+/* The site's own scrollbar: a slim floating thumb in LUME's blue (the browser's bar is hidden in global.css). */
+.track {
+  position: fixed;
+  top: 8px;
+  right: 3px;
+  bottom: 8px;
+  z-index: 70;
+  width: 12px;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+.track[data-show],
+.track:hover {
+  opacity: 1;
+}
+.thumb {
+  width: 6px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #4373f1, #0544e0 50%, #0075fa);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+  cursor: grab;
+  touch-action: none;
+  transition: width 160ms ease;
+  will-change: transform;
+}
+.track:hover .thumb,
+.thumb:active {
+  width: 8px;
+}
+.thumb:active {
+  cursor: grabbing;
+}
+/* Touch screens keep the system's own overlay scrollbar. */
+@media (pointer: coarse) {
+  .track {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: none;
+  }
+}

@@ -1,6 +1,5 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- the hero's captures are plain image pairs swapped by CSS */
-import { useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import Image from "next/image";
 import {
   useEffect,
@@ -12,6 +11,7 @@ import {
   type CSSProperties,
 } from "react";
 import { rectsFor } from "@/lib/screens";
+import { usePinProgress } from "@/motion/pin";
 import { useReducedMotion } from "@/motion/useReducedMotion";
 import { Chrome } from "@/components/lume/Chrome";
 import l from "@/components/lume/lume.module.css";
@@ -19,7 +19,7 @@ import { TODAY_PARTS } from "@/components/lume/today";
 import { heroFrame, pieces as cut, stillFrame } from "./assembly";
 import s from "./hero.module.css";
 
-const PHONE = "(max-width: 760px)";
+const PHONE = "(max-width: 900px)";
 const onMedia = (cb: () => void) => {
   const mq = window.matchMedia(PHONE);
   mq.addEventListener?.("change", cb);
@@ -41,10 +41,8 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
   );
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: track, offset: ["start start", "end end"] });
-  // Critically damped smoothing over the scroll: the build glides, never steps.
-  const smooth = useSpring(scrollYProgress, { stiffness: 170, damping: 32, mass: 0.7, restDelta: 0.0005 });
-  const [p, setP] = useState(0);
+  // Pinned while it builds (170vh of scroll; 70vh on a phone), smoothed, reversible every time.
+  const p = usePinProgress(track, phone ? 70 : 170);
   const [k, setK] = useState(1);
   const told = useRef(false);
   const ps = useMemo(
@@ -54,10 +52,11 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
   const f = reduce ? stillFrame(ps.length) : heroFrame(p, ps.length);
   const settled = f.tilt < 0.01 && f.scale > 0.9999;
 
-  useMotionValueEvent(smooth, "change", (v) => setP(v));
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("lume:hero", { detail: { p } }));
     const leads = ps.findIndex((x) => x.name === "leads");
+    // Back at the top, the new-lead moment is ready to happen again on the next build.
+    if (p < 0.02) told.current = false;
     if (!told.current && leads >= 0 && f.pieces[leads]! > 0.96 && p < 0.5) {
       told.current = true;
       window.dispatchEvent(
@@ -151,9 +150,9 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
     <section id="top" className={s.hero} aria-labelledby="hero-h">
       <div ref={track} className={s.track}>
         <div className={s.sticky}>
-          <div className={s.glow} style={{ opacity: f.glow }} aria-hidden="true" />
           {head}
           <div className={s.stageWrap} style={{ "--drop": `${f.drop * 38}vh` } as CSSProperties}>
+            <div className={s.glow} style={{ opacity: f.glow }} aria-hidden="true" />
             <div
               ref={stage}
               className={s.stage}
@@ -213,6 +212,8 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
           </div>
           {!reduce && f.hint && <Hint />}
         </div>
+        {/* The scroll it takes to build; then the whole dashboard scrolls on, so its lower part is seen too. */}
+        <div className={s.spacer} aria-hidden="true" />
       </div>
     </section>
   );

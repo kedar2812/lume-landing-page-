@@ -23,9 +23,9 @@
   padding: clamp(120px, 18vw, 240px) clamp(20px, 3.5vw, 44px) clamp(22px, 3.5vw, 40px);
   background: linear-gradient(
     180deg,
-    rgba(10, 13, 22, 0),
-    rgba(10, 13, 22, 0.88) 42%,
-    rgba(10, 13, 22, 0.98) 70%
+    rgba(20, 21, 24, 0),
+    rgba(20, 21, 24, 0.88) 42%,
+    rgba(20, 21, 24, 0.98) 70%
   );
   color: #fff;
 }
@@ -89,7 +89,7 @@
   .veil {
     position: static;
     padding-top: 22px;
-    background: #0a0d16;
+    background: var(--ground);
   }
   :global(html[data-theme="light"]) .veil {
     background: var(--surface);

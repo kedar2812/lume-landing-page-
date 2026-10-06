@@ -1,14 +1,14 @@
 "use client";
-import { useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import { useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { Funnel, Header, Noticed, Sources, Tile, TILES } from "@/components/lume/analytics";
 import { Chrome } from "@/components/lume/Chrome";
 import l from "@/components/lume/lume.module.css";
 import { along, useBuild } from "@/motion/build";
+import { usePinProgress } from "@/motion/pin";
 import { useReducedMotion } from "@/motion/useReducedMotion";
 import s from "./analyticsbuild.module.css";
 
-const PHONE = "(max-width: 760px)";
+const PHONE = "(max-width: 900px)";
 const noop = () => () => undefined;
 const onMedia = (cb: () => void) => {
   const mq = window.matchMedia(PHONE);
@@ -42,10 +42,8 @@ export function AnalyticsBuild() {
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const grid = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: track, offset: ["start start", "end end"] });
-  const smooth = useSpring(scrollYProgress, { stiffness: 170, damping: 32, mass: 0.7, restDelta: 0.0005 });
-  const [raw, setRaw] = useState(0);
-  useMotionValueEvent(smooth, "change", (v) => setRaw(v));
+  // Pinned while it builds (200vh of scroll), reversible every time.
+  const raw = usePinProgress(track, 200);
   // Rendered finished on the server (so it reads without JavaScript); built by the scroll once the page is live.
   const live = useSyncExternalStore(
     noop,
@@ -185,6 +183,7 @@ export function AnalyticsBuild() {
             </div>
           </div>
         </div>
+        <div className={s.spacer} aria-hidden="true" />
       </div>
     </section>
   );

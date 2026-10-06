@@ -333,3 +333,14 @@
     backdrop-filter: none;
   }
 }
+/* Reduced motion: the pill and its layers change at once, no glide or fade. */
+@media (prefers-reduced-motion: reduce) {
+  .island,
+  .layer,
+  .layer[data-on] {
+    transition: none;
+  }
+  .section > span {
+    animation: none;
+  }
+}

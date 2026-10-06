@@ -70,17 +70,24 @@ a {
   padding-inline: var(--gutter);
 }
 
-/* The theme grows from the switch (View Transitions); a short fade under reduced motion. */
+/* The theme grows from the switch (View Transitions), slow and even — a gentle ease in and out over 1.1 s while
+   the old theme recedes a touch beneath it; a plain cross-fade under reduced motion. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
+::view-transition-group(root) {
+  animation-duration: 1100ms;
+}
 html[data-vt="reveal"]::view-transition-new(root) {
-  animation: lume-reveal 560ms var(--ease);
+  animation: lume-reveal 1100ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+html[data-vt="reveal"]::view-transition-old(root) {
+  animation: lume-recede 1100ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 html[data-vt="fade"]::view-transition-new(root) {
-  animation: lume-fade 200ms ease;
+  animation: lume-fade 400ms ease both;
 }
 @keyframes lume-reveal {
   from {
@@ -90,8 +97,34 @@ html[data-vt="fade"]::view-transition-new(root) {
     clip-path: circle(150vmax at var(--vt-x) var(--vt-y));
   }
 }
+@keyframes lume-recede {
+  to {
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+}
 @keyframes lume-fade {
   from {
     opacity: 0;
+  }
+}
+
+/* The browser's own scrollbar gives way to the site's (components/ScrollBar) wherever there's a mouse or
+   trackpad; touch screens keep their system overlay. */
+@media (pointer: fine) {
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Browsers without View Transitions: the page's colours cross-fade instead of snapping. */
+@supports not (view-transition-name: none) {
+  body {
+    transition:
+      background-color 700ms ease,
+      color 700ms ease;
   }
 }

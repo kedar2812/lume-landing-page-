@@ -2,24 +2,28 @@
 .hero {
   position: relative;
 }
+/* Pinned while it builds (the spacer is the scroll that takes); the pinned part may be taller than the window,
+   and once built it scrolls on with the page so the whole dashboard is seen. */
 .track {
   position: relative;
-  height: 280vh;
 }
 .sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: clip;
+}
+.spacer {
+  height: 170vh;
 }
 .glow {
   position: absolute;
   left: 50%;
-  bottom: -12vh;
-  width: min(1300px, 140vw);
-  height: 60vh;
-  transform: translateX(-50%);
+  top: 55%;
+  width: 120%;
+  height: 80%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(closest-side, rgba(42, 91, 255, 0.24), rgba(42, 91, 255, 0) 70%);
   filter: blur(40px);
@@ -30,7 +34,10 @@
 }
 
 .head {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 4;
   padding: clamp(92px, 16vh, 150px) var(--gutter) 0;
   text-align: center;
@@ -115,13 +122,14 @@
 }
 
 /* The stage: Today in the other theme, its pieces placed in % so it's exact at any width. */
-/* Sized to fit the window once built (16:10, below the Island), and risen into the space the headline leaves. */
+/* Big enough to read (LUME at ~94% of its own size on a laptop), just under the Island once built, risen into
+   the room the headline leaves. Taller than the window is fine: it scrolls on once built. */
 .stageWrap {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(1152px, 90vw, calc((100svh - 130px) * 1.6));
-  transform: translate(-50%, calc(-50% + 30px + var(--drop, 0px)));
+  position: relative;
+  margin: 0 auto;
+  padding-top: 84px;
+  width: min(1360px, 94vw);
+  transform: translateY(var(--drop, 0px));
   perspective: 1800px;
   z-index: 3;
 }
@@ -203,7 +211,7 @@
 }
 
 .hint {
-  position: absolute;
+  position: fixed;
   right: max(28px, env(safe-area-inset-right));
   bottom: max(26px, env(safe-area-inset-bottom));
   z-index: 6;
@@ -284,23 +292,24 @@
   border-radius: 33px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .track,
   .phoneTrack {
     height: auto;
+  }
+  .spacer {
+    display: none;
   }
   .sticky,
   .phoneSticky {
     position: relative;
-    height: auto;
     min-height: 0;
     padding-bottom: 64px;
   }
-  .stageWrap {
+  .head {
     position: relative;
-    top: auto;
-    left: auto;
+  }
+  .stageWrap {
+    padding-top: 48px;
     transform: none;
-    margin: 56px auto 0;
   }
   .mouse::after {
     animation: none;
