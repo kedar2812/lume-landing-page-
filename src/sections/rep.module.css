@@ -9,11 +9,9 @@
   position: relative;
   padding-bottom: 14%;
 }
-.rep[data-reveal="waiting"] {
-  transform: translateX(-80px);
-}
-.owner[data-reveal="waiting"] {
-  transform: translateX(80px);
+.rep,
+.owner {
+  will-change: transform, opacity;
 }
 .shot {
   border-radius: 14px;

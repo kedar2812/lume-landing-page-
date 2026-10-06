@@ -91,7 +91,7 @@ export function Enquire({
               team sells.
             </p>
             <a className={s.wa} href={`https://wa.me/${whatsapp}`}>
-              <Image src="/brand/whatsapp.svg" alt="" width={20} height={20} />
+              <Image src="/brand/whatsapp-glyph-white.svg" alt="" width={22} height={22} />
               Or message {shown}
             </a>
           </div>

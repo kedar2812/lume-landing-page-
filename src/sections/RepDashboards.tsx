@@ -1,6 +1,8 @@
+"use client";
+import { useRef } from "react";
 import { Screen } from "@/components/Screen";
 import { Solves } from "@/components/Solves";
-import { Reveal } from "@/motion/Reveal";
+import { along, useBuild } from "@/motion/build";
 import x from "./section.module.css";
 import s from "./rep.module.css";
 
@@ -23,10 +25,17 @@ const POINTS = [
   },
 ];
 
-/** Every rep, their own dashboard (website spec §5, item 9): the rep's day and numbers, and the owner's Team board. */
+/**
+ * Every rep, their own dashboard (website spec §5, item 9) — a scroll build-up (§5.H): the rep's day and numbers
+ * come in from the left, the owner's Team board from the right, meeting in the middle.
+ */
 export function RepDashboards() {
+  const ref = useRef<HTMLElement>(null);
+  const p = useBuild(ref);
+  const rep = along(p, 0.1, 0.6);
+  const owner = along(p, 0.2, 0.6);
   return (
-    <section id="team" className={x.section} aria-labelledby="team-h">
+    <section ref={ref} id="team" className={x.section} aria-labelledby="team-h">
       <div className="wrap">
         <Solves n={4} />
         <h2 id="team-h" className={x.h2}>
@@ -37,17 +46,29 @@ export function RepDashboards() {
           you the whole team at a glance.
         </p>
         <div className={s.stage}>
-          <Reveal className={s.rep} y={0}>
+          <div
+            className={s.rep}
+            style={{
+              transform: `translateX(${-180 * (1 - rep)}px) rotate(${-3 * (1 - rep)}deg)`,
+              opacity: 0.2 + 0.8 * rep,
+            }}
+          >
             <Screen name="today-rep" alt="A sales rep's own Today in LUME" className={s.shot} />
             <Screen
               name="me"
               alt="A sales rep's own numbers and goal pace in LUME"
               className={`${s.shot} ${s.behind}`}
             />
-          </Reveal>
-          <Reveal className={s.owner} y={0} delay={120}>
+          </div>
+          <div
+            className={s.owner}
+            style={{
+              transform: `translateX(${180 * (1 - owner)}px) rotate(${3 * (1 - owner)}deg)`,
+              opacity: 0.2 + 0.8 * owner,
+            }}
+          >
             <Screen name="team" alt="LUME's Team board: every rep side by side" className={s.shot} />
-          </Reveal>
+          </div>
         </div>
         <ul className={s.points}>
           {POINTS.map((pt) => (

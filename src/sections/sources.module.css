@@ -17,24 +17,15 @@
   background: color-mix(in oklab, var(--surface) 60%, transparent);
   color: var(--text-2);
   font-size: 0.95rem;
-  animation: chip-in 700ms var(--ease) both;
-  animation-delay: calc(var(--i) * 60ms + 200ms);
-  animation-timeline: view();
-  animation-range: entry 0% entry 60%;
+  will-change: transform, opacity;
 }
-@keyframes chip-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.97);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .chip {
-    animation: none;
-  }
+.stage {
+  margin-top: clamp(36px, 5vw, 56px);
+  perspective: 1600px;
 }
 .shot {
-  margin-top: clamp(36px, 5vw, 56px);
+  transform-origin: 50% 0;
+  will-change: transform, opacity;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-shot);

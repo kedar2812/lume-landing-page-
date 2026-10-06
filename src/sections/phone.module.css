@@ -20,36 +20,13 @@
 .device img {
   border-radius: 36px;
 }
+.left,
+.middle,
+.right {
+  will-change: transform, opacity;
+}
 .middle {
   z-index: 2;
-  transform: translateY(-24px);
-}
-/* The outer two fan out as the section scrolls in (scroll-driven where the browser can). */
-.left,
-.right {
-  animation: linear both;
-  animation-timeline: view();
-  animation-range: entry 10% cover 40%;
-}
-.left {
-  animation-name: fan-left;
-  transform: rotate(-6deg) translateX(18px);
-}
-.right {
-  animation-name: fan-right;
-  transform: rotate(6deg) translateX(-18px);
-}
-@keyframes fan-left {
-  from {
-    transform: rotate(0deg) translateX(60%);
-    opacity: 0.4;
-  }
-}
-@keyframes fan-right {
-  from {
-    transform: rotate(0deg) translateX(-60%);
-    opacity: 0.4;
-  }
 }
 @media (max-width: 640px) {
   .left,
@@ -57,13 +34,6 @@
     display: none;
   }
   .middle {
-    transform: none;
     flex-basis: min(300px, 78vw);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .left,
-  .right {
-    animation: none;
   }
 }
