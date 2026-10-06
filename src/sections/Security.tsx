@@ -8,7 +8,10 @@ const PROTECTIONS = [
     h: "Roles decide who sees what",
     p: "A rep sees their own leads, a team lead their team’s, you everything.",
   },
-  { h: "Exports locked down", p: "Turn exports off, or have them approved first, role by role." },
+  {
+    h: "Exports locked down",
+    p: "Only the roles you allow can export, and only the leads their role can see.",
+  },
   {
     h: "Every download traceable",
     p: "Each export carries a trace, so a leaked list leads back to its download.",
