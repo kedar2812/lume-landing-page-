@@ -27,8 +27,8 @@ export function Sources() {
           Every lead in one list.
         </h2>
         <p className={x.lede}>
-          Wherever an enquiry starts, it lands in LUME within moments: duplicates caught, phone numbers fixed,
-          and the person it belongs to already told.
+          Wherever an enquiry starts, it lands in one list in LUME, with duplicates caught and phone numbers
+          fixed as it arrives.
         </p>
         <ul className={s.list} aria-label="Lead sources">
           {SOURCES.map((src, i) => (
