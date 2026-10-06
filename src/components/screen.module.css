@@ -1,0 +1,24 @@
+.screen {
+  display: block;
+  position: relative;
+}
+.screen img {
+  width: 100%;
+  height: auto;
+}
+/* The capture for the page's theme; the other stays in the markup, hidden. */
+.screen img[data-theme-img="dark"],
+:global(html[data-theme="dark"]) .screen img[data-theme-img="light"] {
+  display: none;
+}
+:global(html[data-theme="dark"]) .screen img[data-theme-img="dark"] {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme])) .screen img[data-theme-img="light"] {
+    display: none;
+  }
+  :global(html:not([data-theme])) .screen img[data-theme-img="dark"] {
+    display: block;
+  }
+}
