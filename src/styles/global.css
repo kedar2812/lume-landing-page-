@@ -69,3 +69,29 @@ a {
   margin: 0 auto;
   padding-inline: var(--gutter);
 }
+
+/* The theme grows from the switch (View Transitions); a short fade under reduced motion. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-vt="reveal"]::view-transition-new(root) {
+  animation: lume-reveal 560ms var(--ease);
+}
+html[data-vt="fade"]::view-transition-new(root) {
+  animation: lume-fade 200ms ease;
+}
+@keyframes lume-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x) var(--vt-y));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vt-x) var(--vt-y));
+  }
+}
+@keyframes lume-fade {
+  from {
+    opacity: 0;
+  }
+}
