@@ -1,0 +1,122 @@
+/*
+ * The site's two looks, LUME's own (Porcelain and Obsidian): the same blue in both, meetings' sky as its touch,
+ * no violet anywhere. Dark is the cinematic ground of direction A (#07080B). The theme script sets
+ * data-theme on <html> before first paint; with no choice the system's wins.
+ */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ground: #f5f6f8;
+  --ground-2: #eef0f3;
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --line: rgba(12, 18, 32, 0.08);
+  --line-2: rgba(12, 18, 32, 0.14);
+  --text: #0a0c11;
+  --text-2: #4c525e;
+  --text-3: #5f6571;
+  --accent: #2a5bff;
+  --accent-rgb: 42, 91, 255;
+  --accent-ink: #1e47d9;
+  --accent-soft: rgba(42, 91, 255, 0.08);
+  --on-accent: #ffffff;
+  --sky: #5ab8ff;
+  --ok: #18a566;
+  --ok-ink: #0c7845;
+  --ok-soft: #e4f6ec;
+  --warn: #f2a20c;
+  --warn-ink: #8a5a00;
+  --warn-soft: #fef4dd;
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-line: rgba(12, 18, 32, 0.08);
+  --glow: rgba(42, 91, 255, 0.18);
+  --scrim: rgba(8, 10, 14, 0.24);
+  --shadow-shot: 0 0 0 0.5px rgba(12, 18, 32, 0.08), 0 30px 80px -20px rgba(12, 18, 32, 0.22);
+  --shadow-pop: 0 0 0 0.5px rgba(12, 18, 32, 0.1), 0 16px 40px -10px rgba(12, 18, 32, 0.2);
+  --grid: rgba(12, 18, 32, 0.04);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #07080b;
+  --ground-2: #0c0e13;
+  --surface: #14161b;
+  --surface-2: #1b1e24;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --text: #f4f5f7;
+  --text-2: #a9aeb8;
+  --text-3: #959aa4;
+  --accent: #2a5bff;
+  --accent-rgb: 42, 91, 255;
+  --accent-ink: #8fa8ff;
+  --accent-soft: rgba(42, 91, 255, 0.2);
+  --on-accent: #ffffff;
+  --sky: #5ab8ff;
+  --ok: #2fbf7a;
+  --ok-ink: #7fe0a8;
+  --ok-soft: rgba(47, 191, 122, 0.14);
+  --warn: #f2a20c;
+  --warn-ink: #ffcf73;
+  --warn-soft: rgba(242, 162, 12, 0.14);
+  --glass: rgba(16, 18, 24, 0.62);
+  --glass-line: rgba(255, 255, 255, 0.1);
+  --glow: rgba(42, 91, 255, 0.45);
+  --scrim: rgba(0, 0, 0, 0.5);
+  --shadow-shot: 0 0 0 0.5px rgba(255, 255, 255, 0.08), 0 50px 140px -30px rgba(0, 0, 0, 0.75);
+  --shadow-pop: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 20px 60px -10px rgba(0, 0, 0, 0.6);
+  --grid: rgba(143, 168, 255, 0.05);
+}
+
+/* No script (or before it runs): the system decides. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --ground: #07080b;
+    --ground-2: #0c0e13;
+    --surface: #14161b;
+    --surface-2: #1b1e24;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.14);
+    --text: #f4f5f7;
+    --text-2: #a9aeb8;
+    --text-3: #959aa4;
+    --accent: #2a5bff;
+    --accent-rgb: 42, 91, 255;
+    --accent-ink: #8fa8ff;
+    --accent-soft: rgba(42, 91, 255, 0.2);
+    --on-accent: #ffffff;
+    --sky: #5ab8ff;
+    --ok: #2fbf7a;
+    --ok-ink: #7fe0a8;
+    --ok-soft: rgba(47, 191, 122, 0.14);
+    --warn: #f2a20c;
+    --warn-ink: #ffcf73;
+    --warn-soft: rgba(242, 162, 12, 0.14);
+    --glass: rgba(16, 18, 24, 0.62);
+    --glass-line: rgba(255, 255, 255, 0.1);
+    --glow: rgba(42, 91, 255, 0.45);
+    --scrim: rgba(0, 0, 0, 0.5);
+    --shadow-shot: 0 0 0 0.5px rgba(255, 255, 255, 0.08), 0 50px 140px -30px rgba(0, 0, 0, 0.75);
+    --shadow-pop: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 20px 60px -10px rgba(0, 0, 0, 0.6);
+    --grid: rgba(143, 168, 255, 0.05);
+  }
+}
+
+:root {
+  --font: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --max: 1200px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fs-hero: clamp(2.6rem, 1.2rem + 6.2vw, 6.5rem);
+  --fs-h2: clamp(2rem, 1.2rem + 3.2vw, 3.75rem);
+  --fs-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
+  --fs-lede: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-sm: 0.875rem;
+  --ls-hero: -0.045em;
+  --ls-h2: -0.035em;
+}

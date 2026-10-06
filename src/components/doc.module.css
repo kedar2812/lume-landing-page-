@@ -1,0 +1,127 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid var(--glass-line);
+  padding-top: env(safe-area-inset-top);
+}
+.barIn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  min-height: 44px;
+}
+.links {
+  display: flex;
+  gap: 4px;
+}
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: var(--text-2);
+  text-decoration: none;
+}
+.links a[aria-current="page"] {
+  color: var(--text);
+  background: var(--accent-soft);
+}
+.doc {
+  max-width: 780px;
+  padding-block: 48px 96px;
+  overflow-wrap: anywhere;
+}
+.doc :global(.kicker) {
+  color: var(--accent-ink);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: var(--fs-sm);
+}
+.doc h1 {
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 8px 0 6px;
+}
+.doc :global(.updated) {
+  color: var(--text-3);
+  margin: 0 0 28px;
+}
+.doc h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 44px 0 10px;
+}
+.doc h3 {
+  font-size: 1.1rem;
+  margin: 26px 0 8px;
+}
+.doc p,
+.doc li {
+  color: var(--text-2);
+}
+.doc strong {
+  color: var(--text);
+}
+.doc :global(.summary) {
+  padding: 18px 22px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.doc :global(.toc) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+.doc :global(.toc) a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+}
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+.doc th,
+.doc td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+}
+.doc th {
+  min-width: 180px;
+}
+.doc code {
+  font-size: 0.85em;
+  word-break: break-all;
+}
+.foot {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 calc(28px + env(safe-area-inset-bottom));
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
