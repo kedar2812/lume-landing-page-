@@ -1,0 +1,175 @@
+.section {
+  padding: clamp(64px, 10vw, 140px) 0;
+}
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(24px, 5vw, 64px);
+  border-radius: var(--radius-xl);
+  color: #fff;
+  background: linear-gradient(140deg, #1a2e8f, #2a5bff 55%, #5ab8ff);
+  box-shadow: 0 60px 160px -40px rgba(42, 91, 255, 0.55);
+}
+.copy {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+.h {
+  margin: 0;
+  font-size: var(--fs-h2);
+  line-height: 1.02;
+  letter-spacing: var(--ls-h2);
+  font-weight: 800;
+}
+.lede {
+  margin: 18px 0 0;
+  font-size: var(--fs-lede);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 34ch;
+}
+.wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  min-height: 44px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.wa:hover {
+  text-decoration: underline;
+}
+.form {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.field label,
+.field legend {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: #fff;
+  color: #0a0c11;
+  font: inherit;
+  /* Never smaller: iOS would zoom the page. */
+  font-size: 16px;
+}
+.field input::placeholder {
+  color: #6b7280;
+}
+.field[data-invalid] input {
+  border-color: #ffd0d2;
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.35);
+}
+.err {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: #fff;
+  background: rgba(10, 12, 17, 0.32);
+  padding: 4px 8px;
+  border-radius: 8px;
+  justify-self: start;
+  align-self: flex-start;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  position: relative;
+}
+.chip input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  transition:
+    background 160ms var(--ease),
+    color 160ms var(--ease);
+}
+.chip input:checked + span {
+  background: #fff;
+  color: #1a2e8f;
+  border-color: #fff;
+}
+.chip input:focus-visible + span {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.send {
+  min-height: 52px;
+  margin-top: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: #07080b;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 100ms var(--ease);
+}
+.send:active {
+  transform: scale(0.98);
+}
+.send:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+.sent {
+  flex: 1 1 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  font-size: var(--fs-lede);
+}
+.sent p {
+  margin: 0;
+}
+.sentTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+@media (max-width: 560px) {
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
