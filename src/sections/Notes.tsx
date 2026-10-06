@@ -6,7 +6,7 @@ import { along, useBuild } from "@/motion/build";
 import s from "./notes.module.css";
 
 /**
- * LUME in five notes (owner's redesign, after canvas C's Analytics section): each one plain sentence over LUME's own
+ * LUME in notes (owner's redesign, after canvas C's Analytics section): each one plain sentence over LUME's own
  * screen, half under a veil, with a few words of what's in it — enough to want the demo, not the whole manual.
  */
 export const NOTES: {
@@ -45,20 +45,6 @@ export const NOTES: {
     ],
     shot: "action-whatsapp",
     alt: "A WhatsApp template in LUME with the lead's details filled in, ready to send",
-  },
-  {
-    id: "analytics",
-    eyebrow: "Analytics",
-    title: "Analytics that read like a colleague’s note.",
-    chips: [
-      "Speed pays off",
-      "Referrals punch above their weight",
-      "Webinars cost more than they return",
-      "Most leads arrive after 7 pm",
-    ],
-    shot: "overview",
-    alt: "LUME's Analytics overview: new leads, replies, calls, wins and revenue against the month before",
-    from: "From the demo business",
   },
   {
     id: "team",
@@ -107,10 +93,11 @@ function Note({ n }: { n: (typeof NOTES)[number] }) {
   );
 }
 
-export function Notes() {
+/** The notes, or just the ones named (the page puts Analytics' own build-up between them). */
+export function Notes({ only }: { only?: string[] }) {
   return (
     <>
-      {NOTES.map((n) => (
+      {NOTES.filter((n) => !only || only.includes(n.id)).map((n) => (
         <Note key={n.id} n={n} />
       ))}
     </>

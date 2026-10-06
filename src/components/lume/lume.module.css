@@ -1,0 +1,297 @@
+/*
+ * LUME rebuilt in HTML for the website: the app's own tokens (apps/web/src/styles/tokens.css), always in the
+ * other theme to the page (owner's rule) — Obsidian on the light page, Porcelain on the dark one. Drawn on a
+ * 1440 × 900 canvas, scaled with `zoom` so text is laid out (and stays sharp) at any size.
+ */
+.tokens {
+  /* Obsidian (Carbon shade): the light page's LUME. */
+  --canvas: #141518;
+  --side-text: #bcc0c8;
+  --sheet: #212328;
+  --tile: #2a2c32;
+  --tile-line: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.12);
+  --text: #eef0f3;
+  --text-2: #9ca1ab;
+  --text-3: #9297a0;
+  --accent: #2a5bff;
+  --accent-soft: rgba(42, 91, 255, 0.2);
+  --accent-ink: #8aa7ff;
+  --danger: #ff5c61;
+  --danger-soft: rgba(255, 92, 97, 0.14);
+  --danger-ink: #ff8a8e;
+  --warn: #ffb224;
+  --warn-ink: #ffc75c;
+  --sky: #7cc8ff;
+  --ok: #2fd08a;
+  --ok-soft: rgba(47, 208, 138, 0.14);
+  --ok-ink: #5fe0a8;
+  --raised: #2b2e34;
+  --shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.06), 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  color: var(--text);
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  line-height: 1.35;
+}
+.tokens * {
+  box-sizing: border-box;
+}
+/* The whole app on its 1440 × 900 canvas. */
+.app {
+  position: relative;
+  width: 1440px;
+  height: 900px;
+  overflow: hidden;
+  background: var(--canvas);
+}
+/* Porcelain: the dark page's LUME. */
+:global(html[data-theme="dark"]) .tokens {
+  --canvas: #eef0f3;
+  --side-text: #3a3f4a;
+  --sheet: #ffffff;
+  --tile: #f5f6f8;
+  --tile-line: rgba(12, 18, 32, 0.06);
+  --line: rgba(12, 18, 32, 0.075);
+  --line-2: rgba(12, 18, 32, 0.12);
+  --text: #0a0c11;
+  --text-2: #5a606d;
+  --text-3: #666b76;
+  --accent-soft: rgba(42, 91, 255, 0.08);
+  --accent-ink: #1e47d9;
+  --danger: #e5484d;
+  --danger-soft: #fdecec;
+  --danger-ink: #c3272d;
+  --warn: #f2a20c;
+  --warn-ink: #8a5a00;
+  --sky: #5ab8ff;
+  --ok: #18a566;
+  --ok-soft: #e4f6ec;
+  --ok-ink: #0c7845;
+  --raised: #ffffff;
+  --shadow: 0 0 0 0.5px rgba(12, 18, 32, 0.08), 0 8px 24px -10px rgba(12, 18, 32, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme])) .tokens {
+    --canvas: #eef0f3;
+    --side-text: #3a3f4a;
+    --sheet: #ffffff;
+    --tile: #f5f6f8;
+    --text: #0a0c11;
+    --text-2: #5a606d;
+    --text-3: #666b76;
+  }
+}
+
+/* The frame: sidebar on the canvas, the sheet beside it. */
+.side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 244px;
+  padding: 18px 10px 18px 10px;
+  color: var(--side-text);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px;
+  height: 42px;
+}
+.brand img {
+  width: 30px;
+  height: 30px;
+}
+.brand b {
+  display: block;
+  font-size: 15px;
+  font-weight: 680;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.brand small {
+  display: block;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.nav {
+  margin-top: 16px;
+  display: grid;
+  gap: 2px;
+}
+.nav span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.nav span[data-on] {
+  background: var(--sheet);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.nav svg,
+.views i {
+  flex: none;
+}
+.views {
+  margin-top: 30px;
+  display: grid;
+  gap: 4px;
+}
+.views > p {
+  margin: 0 0 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+}
+.views span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 27px;
+  padding: 0 16px 0 26px;
+  font-size: 14px;
+}
+.views i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.views em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.me {
+  position: absolute;
+  left: 20px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.me b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.me small {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.sheet {
+  position: absolute;
+  left: 244px;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  border-radius: 14px;
+  background: var(--sheet);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  padding: 0 18px 0 28px;
+  border-bottom: 1px solid var(--line);
+}
+.title {
+  margin: 0 auto 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.009em;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 300px;
+  height: 34px;
+  padding: 0 8px 0 12px;
+  border-radius: 10px;
+  background: var(--tile);
+  color: var(--text-3);
+  font-size: 14px;
+}
+.search kbd {
+  margin-left: auto;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--line-2);
+  font: inherit;
+  font-size: 11px;
+}
+.seg {
+  display: flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--tile);
+  font-size: 12px;
+  color: var(--text-2);
+}
+.seg span {
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+.seg span[data-on] {
+  background: var(--sheet);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.bell {
+  position: relative;
+  color: var(--text-2);
+}
+.bell::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--sheet);
+}
+
+/* Shared pieces. */
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex: none;
+}
+.up,
+.down {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 650;
+  background: var(--ok-soft);
+  color: var(--ok-ink);
+  font-variant-numeric: tabular-nums;
+}

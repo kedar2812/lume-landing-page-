@@ -1,7 +1,10 @@
 // @vitest-environment node
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("next/font/google", () => ({ Geist: () => ({ variable: "font-geist" }) }));
+vi.mock("next/font/google", () => ({
+  Geist: () => ({ variable: "font-geist" }),
+  Inter: () => ({ variable: "font-inter" }),
+}));
 import { structuredData } from "@/lib/structured-data";
 import { metadata } from "./layout";
 import robots from "./robots";

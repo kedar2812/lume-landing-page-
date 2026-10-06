@@ -1,0 +1,543 @@
+/* Today's parts, as LUME draws them (sizes from the app's own type scale). */
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+}
+.mark {
+  width: 42px;
+  height: 42px;
+}
+.hello {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 680;
+  letter-spacing: -0.019em;
+}
+.greeting p:not(.hello) {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--text-2);
+}
+.red {
+  color: var(--danger-ink);
+  font-weight: 600;
+}
+.blue {
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.date {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: var(--ok-soft);
+  color: var(--ok-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+.needs {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px 7px 12px;
+  border-radius: 10px;
+  background: var(--raised);
+  box-shadow: var(--shadow);
+  font-size: 14px;
+  font-weight: 600;
+}
+.needs i {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+}
+
+/* Cards and tiles. */
+.card,
+.tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: var(--tile);
+  border: 1px solid var(--tile-line);
+  padding: 16px 18px;
+  overflow: hidden;
+}
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.head em {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+}
+.big {
+  margin: 14px 0 0;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.big span {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  color: var(--text-2);
+}
+.vs {
+  margin: 12px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.foot {
+  position: absolute;
+  left: 18px;
+  bottom: 14px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.foot b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Your day. */
+.line {
+  position: relative;
+  height: 100px;
+  margin: 6px 6px 0;
+}
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--line-2);
+}
+.dot {
+  position: absolute;
+  top: 45px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+}
+.dot[data-k="ok"] {
+  background: var(--ok);
+}
+.dot[data-k="bad"] {
+  background: var(--danger);
+}
+.dot[data-k="due"] {
+  background: var(--warn);
+}
+.dot[data-k="next"] {
+  background: var(--tile);
+  border: 2px solid var(--accent);
+}
+.now {
+  position: absolute;
+  top: 6px;
+  height: 58px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--accent);
+}
+.now b {
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  border-radius: 7px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 650;
+}
+.flag {
+  position: absolute;
+  top: 8px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--raised);
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-2);
+}
+.flagBlue {
+  background: var(--accent);
+  color: #fff;
+}
+.hours {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 64px;
+}
+.hours span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.next {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--raised);
+  box-shadow: var(--shadow);
+}
+.vid {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.next b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+.next small {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.next em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--accent-ink);
+}
+.btn {
+  padding: 7px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--line-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Up next. */
+.tabs {
+  display: inline-flex;
+  margin-left: 10px;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--sheet);
+  font-size: 12px;
+  font-weight: 600;
+}
+.tabs > * {
+  padding: 4px 9px;
+  border-radius: 7px;
+}
+.tabs b {
+  background: var(--tile);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.tabs i {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-3);
+}
+.ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--line-2);
+  border-top-color: var(--ok);
+  border-right-color: var(--ok);
+}
+.rows {
+  margin-top: 12px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  border-bottom: 1px solid var(--line);
+}
+.box {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  flex: none;
+}
+.row b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.what {
+  font-size: 13px;
+  color: var(--text-2);
+}
+.row em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.row em[data-k="bad"] {
+  color: var(--danger-ink);
+  font-weight: 600;
+}
+.row em[data-k="due"] {
+  color: var(--warn-ink);
+  font-weight: 600;
+}
+.more {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+/* Leads. */
+.bars {
+  position: absolute;
+  right: 18px;
+  bottom: 44px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 56px;
+}
+.bars i {
+  width: 7px;
+  border-radius: 2px 2px 0 0;
+  background: var(--accent);
+}
+
+/* Revenue: LUME's blue tile. */
+.money {
+  background: linear-gradient(160deg, #3d6bff, #2a5bff 55%, #1f4ae0);
+  border: 0;
+  color: #fff;
+  box-shadow: 0 14px 40px -12px rgba(42, 91, 255, 0.6);
+}
+.money .head,
+.money .big span,
+.money .vs {
+  color: rgba(255, 255, 255, 0.85);
+}
+.upWhite {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 650;
+}
+.progress {
+  position: relative;
+  margin-top: 26px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.progress i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 4px;
+  background: #fff;
+}
+.progress i::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -3px;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: #fff;
+}
+.split {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.pace {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.pace b {
+  color: #fff;
+}
+
+/* Pipeline. */
+.stack {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  margin-top: 18px;
+}
+.stack i {
+  border-radius: 3px;
+  background: var(--accent);
+}
+.stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.stats span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 70px;
+}
+.stats b {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--text);
+}
+.stats i {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.stats i[data-k="ok"] {
+  background: var(--ok);
+}
+
+/* Calendar. */
+.week {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 66px;
+  margin-top: 12px;
+}
+.week span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+.week i {
+  width: 24px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--line-2);
+}
+.week i[data-on] {
+  height: 50px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, var(--sky), var(--accent));
+}
+
+/* Team. */
+.people {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 13px;
+}
+.people > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.people i {
+  margin-left: auto;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--danger);
+}
+.people b {
+  width: 12px;
+  text-align: right;
+  color: var(--danger-ink);
+  font-weight: 650;
+}
+
+/* Replies. */
+.wave {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 40px;
+  width: calc(100% - 36px);
+  height: 52px;
+}
+.wave path:first-child {
+  fill: var(--accent-soft);
+}
+.wave path:last-child {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}

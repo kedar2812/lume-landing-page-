@@ -52,6 +52,11 @@ const progress = () => {
  */
 export function Island({ whatsapp }: { whatsapp: string }) {
   const y = useSyncExternalStore(onScroll, scrollY, () => 0);
+  const vw = useSyncExternalStore(
+    onScroll,
+    () => window.innerWidth,
+    () => 1440,
+  );
   const p = useSyncExternalStore(onScroll, progress, () => 0);
   const phone = useSyncExternalStore(
     onMedia,
@@ -63,6 +68,7 @@ export function Island({ whatsapp }: { whatsapp: string }) {
   const [note, setNote] = useState<string | null>(null);
   const [heroBuilding, setHeroBuilding] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const hover = useRef(0);
   const shape: IslandShape = islandState({ y, heroBuilding, notifying: !!note, phone, open });
 
   useEffect(() => {
@@ -118,7 +124,18 @@ export function Island({ whatsapp }: { whatsapp: string }) {
         aria-label="Main"
         data-state={shape}
         className={s.island}
-        style={{ "--w": `${width}px` } as CSSProperties}
+        // Plain pixels (not min() over a variable): Safari only animates a width it can interpolate.
+        style={{ width: `${Math.min(width, vw - 24)}px` } as CSSProperties}
+        onPointerEnter={() => {
+          window.clearTimeout(hover.current);
+          // A breath first, so passing over it on the way to the page doesn't open it.
+          if (y > 24) hover.current = window.setTimeout(() => setOpen(true), 120);
+        }}
+        onPointerLeave={() => {
+          window.clearTimeout(hover.current);
+          // And a breath before closing, so grazing its edge doesn't make it flicker.
+          hover.current = window.setTimeout(() => setOpen(false), 180);
+        }}
         onFocus={() => setOpen(true)}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setOpen(false)}
         onKeyDown={(e: KeyboardEvent) => e.key === "Escape" && setOpen(false)}

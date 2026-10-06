@@ -1,0 +1,308 @@
+/* The Analytics overview's parts, as LUME draws them. */
+.header {
+  width: 100%;
+  height: 100%;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tabs {
+  display: flex;
+  padding: 3px;
+  margin-right: auto;
+  border-radius: 10px;
+  background: var(--tile);
+  font-size: 14px;
+  color: var(--text-2);
+}
+.tabs span {
+  padding: 6px 11px;
+  border-radius: 8px;
+}
+.tabs span[data-on] {
+  background: var(--sheet);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.ctl {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 11px;
+  border-radius: 10px;
+  border: 1px solid var(--line-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+.ctl i {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: var(--tile);
+  font-size: 11px;
+  font-style: normal;
+  color: var(--text-2);
+}
+.header .title {
+  margin: 26px 0 0;
+  font-size: 23px;
+  font-weight: 680;
+  letter-spacing: -0.019em;
+}
+.header p {
+  display: flex;
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.header em {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-style: normal;
+  font-size: 13px;
+}
+.header em i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 104px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: var(--sheet);
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+}
+.tile[data-kind="money"] {
+  background: linear-gradient(160deg, #3d6bff, #2a5bff 55%, #1f4ae0);
+  border: 0;
+  color: #fff;
+  box-shadow: 0 14px 40px -12px rgba(42, 91, 255, 0.6);
+}
+.tile[data-kind="alert"] {
+  border-color: color-mix(in oklab, var(--danger) 55%, transparent);
+}
+.name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.tile[data-kind="money"] .name {
+  color: rgba(255, 255, 255, 0.85);
+}
+.value {
+  margin: 6px 0 8px;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.value span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.tile[data-kind="alert"] .value {
+  color: var(--danger-ink);
+}
+.deltaMoney {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  font-weight: 650;
+}
+.right {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: var(--tile);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.small {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+.spark {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 104px;
+  height: 44px;
+}
+.area {
+  fill: var(--accent-soft);
+}
+.tile[data-kind="money"] .area {
+  fill: rgba(255, 255, 255, 0.18);
+}
+.stroke {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-dasharray: 1;
+}
+.tile[data-kind="money"] .stroke {
+  stroke: #fff;
+}
+
+.card,
+.noticed {
+  width: 100%;
+  height: 100%;
+  padding: 18px 18px;
+  border-radius: 14px;
+  background: var(--sheet);
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+}
+.cardH {
+  display: flex;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+}
+.cardH em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 13px;
+  color: var(--accent-ink);
+}
+.cardSub {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.legend {
+  display: flex;
+  gap: 18px;
+  margin: 16px 0 8px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.grid {
+  stroke: var(--line);
+}
+.dashed {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  opacity: 0.7;
+}
+.axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+.funnel {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+.step {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) 44px;
+  align-items: center;
+  column-gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.stepName {
+  color: var(--text);
+}
+.track {
+  height: 24px;
+  border-radius: 6px;
+  background: var(--tile);
+}
+.track i {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 8px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #2a5bff, #5ab8ff);
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pct {
+  text-align: right;
+}
+.stop {
+  grid-column: 2;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--danger-ink);
+}
+.noticed {
+  height: auto;
+  background: var(--raised);
+  box-shadow:
+    var(--shadow),
+    0 40px 90px -20px rgba(0, 0, 0, 0.45);
+}
+.note {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.45;
+}
+.note img {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+.note b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+  color: var(--text);
+}

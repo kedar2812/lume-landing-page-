@@ -13,6 +13,9 @@ import {
 } from "react";
 import { rectsFor } from "@/lib/screens";
 import { useReducedMotion } from "@/motion/useReducedMotion";
+import { Chrome } from "@/components/lume/Chrome";
+import l from "@/components/lume/lume.module.css";
+import { TODAY_PARTS } from "@/components/lume/today";
 import { heroFrame, pieces as cut, stillFrame } from "./assembly";
 import s from "./hero.module.css";
 
@@ -65,7 +68,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
   useLayoutEffect(() => {
     const el = stage.current;
     if (!el) return;
-    const read = () => setK(el.getBoundingClientRect().width / 1440 || 1);
+    const read = () => setK(el.offsetWidth / 1440 || 1);
     read();
     if (typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver(read);
@@ -166,58 +169,46 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
                 style={{ opacity: Math.max(0, (f.scale - 0.94) / 0.06) }}
                 aria-hidden="true"
               />
-              {reduce ? (
-                <span className={s.whole}>
-                  <img
-                    className={s.invLight}
-                    src="/screens/today-light.webp"
-                    alt="LUME's Today: the day's follow-ups and calls, new leads, revenue, the pipeline, the team and replies"
-                    width={1440}
-                    height={900}
-                  />
-                  <img
-                    className={s.invDark}
-                    src="/screens/today-dark.webp"
-                    alt=""
-                    width={1440}
-                    height={900}
-                  />
-                </span>
-              ) : (
-                <>
-                  <div
-                    className={`${s.base} ${s.shot}`}
-                    style={{ opacity: f.base }}
-                    role="img"
-                    aria-label="LUME's Today: the day's follow-ups and calls, new leads, revenue, the pipeline, the team and replies"
-                  />
-                  {ps.map((pc, i) => {
-                    const t = f.pieces[i]!;
-                    const away = 1 - t;
-                    return (
-                      <div
-                        key={pc.name}
-                        className={`${s.piece} ${s.shot}`}
-                        aria-hidden="true"
-                        style={{
-                          left: `${pc.left}%`,
-                          top: `${pc.top}%`,
-                          width: `${pc.width}%`,
-                          height: `${pc.height}%`,
-                          backgroundSize: pc.bgSize,
-                          backgroundPosition: pc.bgPos,
-                          opacity: Math.min(1, t * 2.2),
-                          transform: `translate(${pc.from.x * away * k}px, ${pc.from.y * away * k}px) rotate(${pc.from.rotate * away}deg) scale(${0.9 + 0.1 * t})`,
-                          boxShadow: `0 18px 50px rgba(0,0,0,${(0.35 * away + 0.05).toFixed(2)})`,
-                          // Home: the whole capture under it shows instead, so no slice ever doubles the text.
-                          visibility: t <= 0 || (t >= 1 && f.base >= 1) ? "hidden" : "visible",
-                          willChange: t > 0 && t < 1 ? "transform, opacity" : "auto",
-                        }}
-                      />
-                    );
-                  })}
-                </>
-              )}
+              {/* LUME's Today, rebuilt in HTML (always the other theme to the page): the frame fades in, and
+                  each part flies home from the side its data comes from. Under reduced motion, all in place. */}
+              <div
+                className={`${l.tokens} ${l.app} ${s.canvas}`}
+                style={{ zoom: k, background: "transparent" } as CSSProperties}
+                role="img"
+                aria-label="LUME's Today: the day's follow-ups and calls, new leads, revenue, the pipeline, the team and replies"
+              >
+                <div className={s.ground} style={{ opacity: f.base }} />
+                <Chrome page="Today" style={{ opacity: f.base }} />
+                {ps.map((pc, i) => {
+                  const t = f.pieces[i]!;
+                  const away = 1 - t;
+                  const Part = TODAY_PARTS[pc.name];
+                  return (
+                    <div
+                      key={pc.name}
+                      className={s.piece}
+                      style={{
+                        left: `${pc.left}%`,
+                        top: `${pc.top}%`,
+                        width: `${pc.width}%`,
+                        height: `${pc.height}%`,
+                        opacity: Math.min(1, t * 2.2),
+                        // Home: no transform at all, so the browser lays the text out crisp.
+                        transform:
+                          t >= 1
+                            ? "none"
+                            : `translate(${pc.from.x * away}px, ${pc.from.y * away}px) rotate(${pc.from.rotate * away}deg) scale(${0.9 + 0.1 * t})`,
+                        boxShadow:
+                          t >= 1 ? "none" : `0 18px 50px rgba(0,0,0,${(0.35 * away + 0.05).toFixed(2)})`,
+                        visibility: t <= 0 ? "hidden" : "visible",
+                        willChange: t > 0 && t < 1 ? "transform, opacity" : "auto",
+                      }}
+                    >
+                      {Part && <Part />}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           {!reduce && f.hint && <Hint />}

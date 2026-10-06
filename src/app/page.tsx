@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero/Hero";
 import { Island } from "@/components/island/Island";
 import { SmoothScroll } from "@/motion/SmoothScroll";
+import { AnalyticsBuild } from "@/sections/AnalyticsBuild";
 import { Enquire } from "@/sections/Enquire";
 import { Faq } from "@/sections/Faq";
 import { Footer } from "@/sections/Footer";
@@ -12,8 +13,8 @@ import { ThemeProvider } from "@/theme/ThemeProvider";
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP ?? "918805895066";
 
 /**
- * lumecrm.in, small on purpose (owner's redesign, 2026-10-06): the hero, the problem in one line, LUME in five
- * plain notes over its own screens, the phone, four questions, the enquiry. Enough to want the demo; the demo
+ * lumecrm.in, small on purpose (owner's redesign, 2026-10-06): the hero, the problem in one line, LUME in plain
+ * notes over its own screens, Analytics built by the scroll like the hero, the phone, four questions, the enquiry. Enough to want the demo; the demo
  * shows the rest.
  */
 export default function Home() {
@@ -27,7 +28,9 @@ export default function Home() {
       <main id="main">
         <Hero whatsapp={WHATSAPP} />
         <Forgotten />
-        <Notes />
+        <Notes only={["one-list", "your-day", "whatsapp"]} />
+        <AnalyticsBuild />
+        <Notes only={["team"]} />
         <Phone />
         <Faq />
         <Enquire whatsapp={WHATSAPP} />

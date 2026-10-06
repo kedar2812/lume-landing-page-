@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import { structuredData } from "@/lib/structured-data";
 import { themeScript } from "@/theme/theme-script";
 import "@/styles/global.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+/** LUME's own typeface, for the screens rebuilt in HTML (they read as the real app). */
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lumecrm.in"),
@@ -37,7 +39,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={geist.variable} suppressHydrationWarning>
+    <html lang="en" className={`${geist.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {/* Without JavaScript nothing builds with the scroll: show every built piece finished. */}

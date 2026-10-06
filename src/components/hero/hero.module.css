@@ -162,9 +162,23 @@
   border-radius: 14px;
   background-size: 100% 100%;
 }
+/* The 1440 × 900 canvas LUME is drawn on, scaled to the stage with `zoom` (laid out at size, never blurred). */
+.canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 14px;
+  background: transparent;
+}
+.ground {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: var(--canvas);
+}
 .piece {
   position: absolute;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 .whole {
   position: absolute;

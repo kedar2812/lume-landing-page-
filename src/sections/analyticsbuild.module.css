@@ -1,0 +1,110 @@
+/* Analytics, built by the scroll: pinned like the hero, LUME's Overview assembling under one line. */
+.track {
+  position: relative;
+  height: 320vh;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(84px, 11vh, 120px);
+}
+.head {
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+.eyebrow {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.h {
+  margin: 12px auto 0;
+  max-width: 24ch;
+  font-size: var(--fs-h2);
+  line-height: 1.04;
+  letter-spacing: var(--ls-h2);
+  font-weight: 800;
+  text-wrap: balance;
+}
+.stageWrap {
+  margin-top: clamp(20px, 3.5vh, 36px);
+  width: min(1120px, 90vw, calc((100svh - 260px) * 1.6));
+}
+.stage {
+  position: relative;
+  aspect-ratio: 1440 / 900;
+}
+.glass {
+  position: absolute;
+  inset: -10px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(12, 18, 32, 0.4));
+  box-shadow:
+    0 60px 140px rgba(12, 18, 32, 0.3),
+    0 0 120px rgba(42, 91, 255, 0.2);
+}
+:global(html[data-theme="dark"]) .glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 60px 160px rgba(0, 0, 0, 0.7),
+    0 0 160px rgba(42, 91, 255, 0.4);
+}
+.canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 14px;
+}
+.ground {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: var(--canvas);
+}
+.part {
+  position: absolute;
+}
+
+/* A phone: the tiles at full size in two columns, then LUME's note. */
+.phone {
+  padding: clamp(56px, 12vw, 96px) 0;
+}
+.phone .head {
+  padding: 0;
+  text-align: left;
+}
+.phone .h {
+  margin-left: 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  padding: 12px;
+  border-radius: 22px;
+  background: var(--canvas);
+}
+.phoneNote {
+  grid-column: 1 / -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+    height: auto;
+    padding-bottom: 80px;
+  }
+}

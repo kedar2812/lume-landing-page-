@@ -3,8 +3,8 @@ import { SCREENS, srcOf, type ScreenName } from "@/lib/screens";
 import s from "./screen.module.css";
 
 /**
- * A real LUME capture in the page's theme (website spec §8): Porcelain and Obsidian side by side in the markup,
- * CSS showing the one that matches <html data-theme>, so a theme switch swaps every capture at once with no
+ * A real LUME capture in the other theme to the page (owner's rule): Porcelain and Obsidian side by side in the
+ * markup, CSS showing the one opposite <html data-theme>, so a theme switch swaps every capture at once with no
  * fetch and no shift. Sized to its CSS pixels (captures are 2× or 3×).
  */
 export function Screen({
@@ -28,8 +28,12 @@ export function Screen({
     fetchPriority: priority ? ("high" as const) : ("auto" as const),
   };
   return (
-    <span className={`${s.screen} ${shot.phone ? s.phone : ""} ${className ?? ""}`}>
-      <img {...common} src={srcOf(name, "light", shot.phone)} alt={alt} data-theme-img="light" />
+    <span
+      className={`${s.screen} ${shot.phone ? s.phone : ""} ${className ?? ""}`}
+      role="img"
+      aria-label={alt}
+    >
+      <img {...common} src={srcOf(name, "light", shot.phone)} alt="" data-theme-img="light" />
       <img {...common} src={srcOf(name, "dark", shot.phone)} alt="" data-theme-img="dark" />
     </span>
   );

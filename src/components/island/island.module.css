@@ -13,7 +13,7 @@
   --ease-morph: cubic-bezier(0.32, 0.72, 0, 1);
   position: relative;
   height: 52px;
-  width: min(var(--w), calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
   border-radius: 26px;
   overflow: hidden;
   isolation: isolate;

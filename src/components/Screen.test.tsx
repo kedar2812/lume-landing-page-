@@ -11,7 +11,7 @@ vi.mock("@/lib/screens", () => ({
 }));
 import { Screen } from "./Screen";
 
-describe("a LUME capture, in the page's theme", () => {
+describe("a LUME capture, in the other theme to the page", () => {
   it("carries both themes' captures, sized, with the description once", () => {
     render(<Screen name="today" alt="LUME's Today" />);
     const imgs = [...document.querySelectorAll("img")];
@@ -20,8 +20,9 @@ describe("a LUME capture, in the page's theme", () => {
       "/screens/today-dark.webp",
     ]);
     expect(imgs.map((i) => i.dataset.themeImg)).toEqual(["light", "dark"]);
-    expect(screen.getAllByAltText("LUME's Today")).toHaveLength(1);
-    expect(imgs[1]!.getAttribute("alt")).toBe("");
+    // Named once, on the wrapper: whichever capture the theme shows, it's read the same.
+    expect(screen.getByRole("img", { name: "LUME's Today" })).toBeInTheDocument();
+    expect(imgs.map((i) => i.getAttribute("alt"))).toEqual(["", ""]);
     expect(imgs[0]!.getAttribute("width")).toBe("1440");
     expect(imgs[0]!.getAttribute("height")).toBe("900");
   });

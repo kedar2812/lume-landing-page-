@@ -6,19 +6,20 @@
   width: 100%;
   height: auto;
 }
-/* The capture for the page's theme; the other stays in the markup, hidden. */
-.screen img[data-theme-img="dark"],
-:global(html[data-theme="dark"]) .screen img[data-theme-img="light"] {
+/* The owner's rule (2026-10-06): LUME always shows in the other theme to the page — Obsidian on the light page,
+   Porcelain on the dark one — so the product stands out from the page around it. */
+.screen img[data-theme-img="light"],
+:global(html[data-theme="dark"]) .screen img[data-theme-img="dark"] {
   display: none;
 }
-:global(html[data-theme="dark"]) .screen img[data-theme-img="dark"] {
+:global(html[data-theme="dark"]) .screen img[data-theme-img="light"] {
   display: block;
 }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme])) .screen img[data-theme-img="light"] {
+  :global(html:not([data-theme])) .screen img[data-theme-img="dark"] {
     display: none;
   }
-  :global(html:not([data-theme])) .screen img[data-theme-img="dark"] {
+  :global(html:not([data-theme])) .screen img[data-theme-img="light"] {
     display: block;
   }
 }
