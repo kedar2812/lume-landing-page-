@@ -59,7 +59,7 @@ export type HeroFrame = {
   /** The screen tilting upright and growing to full size. */
   tilt: number;
   scale: number;
-  /** The headline lifting away, its light sweeping across. */
+  /** The headline lifting away (0 → 1 of its lift), its light sweeping across. */
   headY: number;
   headOpacity: number;
   sweep: number;
@@ -68,12 +68,14 @@ export type HeroFrame = {
   hint: boolean;
   /** The blue glow behind the finished screen, 0 → 1. */
   glow: number;
+  /** How far below its place the screen still sits (1 at rest → 0 built), as it rises into the headline's room. */
+  drop: number;
 };
 
 /** The hero at scroll progress p (0 → 1 across its track), for n pieces. */
 export function heroFrame(p: number, n: number): HeroFrame {
   const settle = ease(clamp((p - 0.62) / 0.3));
-  const lift = ease(clamp((p - 0.35) / 0.5));
+  const lift = ease(clamp((p - 0.12) / 0.48));
   return {
     pieces: Array.from({ length: n }, (_, i) => {
       const t = clamp((p - 0.04 - i * 0.035) / 0.45);
@@ -82,16 +84,17 @@ export function heroFrame(p: number, n: number): HeroFrame {
     base: clamp((p - 0.45) / 0.15),
     tilt: 14 * (1 - settle),
     scale: 0.94 + 0.06 * settle,
-    headY: -90 * lift,
-    headOpacity: 1 - 0.8 * lift,
+    headY: -lift,
+    headOpacity: 1 - lift,
     sweep: 100 - 100 * clamp(p / 0.35),
     ctas: 1 - clamp((p - 0.01) / 0.05),
     hint: p < 0.03,
     glow: 0.85 * settle + (settle >= 1 ? 0.15 : 0),
+    drop: 1 - lift,
   };
 }
 
 /** Reduced motion: nothing travels — the finished screen under the headline, both buttons where they were. */
 export function stillFrame(n: number): HeroFrame {
-  return { ...heroFrame(1, n), headY: 0, headOpacity: 1, sweep: 0, ctas: 1, hint: false };
+  return { ...heroFrame(1, n), headY: 0, headOpacity: 1, sweep: 0, ctas: 1, hint: false, drop: 0 };
 }

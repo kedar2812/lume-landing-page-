@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   useCallback,
   useEffect,
+  useId,
   useLayoutEffect,
   useRef,
   useState,
@@ -17,10 +18,9 @@ import s from "./island.module.css";
 
 /** The story's chapters, as the Island links them (website spec §5.0). */
 export const CHAPTERS = [
-  { id: "problems", label: "The problems", short: "Problems" },
-  { id: "meet", label: "Meet LUME", short: "LUME" },
-  { id: "your-day", label: "How it runs your day", short: "Your day" },
-  { id: "results", label: "What changes for your business", short: "Results" },
+  { id: "problem", label: "The problem", short: "Problem" },
+  { id: "one-list", label: "What LUME does", short: "LUME" },
+  { id: "phone", label: "On your phone", short: "Phone" },
   { id: "faq", label: "Questions", short: "Questions" },
 ] as const;
 
@@ -63,6 +63,7 @@ export function Island({ whatsapp }: { whatsapp: string }) {
   const [note, setNote] = useState<string | null>(null);
   const [heroBuilding, setHeroBuilding] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const hover = useRef(0);
   const shape: IslandShape = islandState({ y, heroBuilding, notifying: !!note, phone, open });
 
   useEffect(() => {
@@ -90,7 +91,7 @@ export function Island({ whatsapp }: { whatsapp: string }) {
   });
   const [widths, setWidths] = useState({ wide: 820, compact: 486, notify: 440 });
   const measure = useCallback(() => {
-    const w = (k: "wide" | "compact" | "notify") => Math.ceil(layers.current[k]?.scrollWidth ?? 0);
+    const w = (k: "wide" | "compact" | "notify") => Math.ceil(layers.current[k]?.offsetWidth ?? 0);
     setWidths((old) => ({
       wide: w("wide") || old.wide,
       compact: w("compact") || old.compact,
@@ -119,8 +120,15 @@ export function Island({ whatsapp }: { whatsapp: string }) {
         data-state={shape}
         className={s.island}
         style={{ "--w": `${width}px` } as CSSProperties}
-        onPointerEnter={() => y > 24 && setOpen(true)}
-        onPointerLeave={() => setOpen(false)}
+        onPointerEnter={() => {
+          window.clearTimeout(hover.current);
+          // A short pause first, so passing the pointer over the top of the page doesn't flick it open.
+          if (y > 24) hover.current = window.setTimeout(() => setOpen(true), 140);
+        }}
+        onPointerLeave={() => {
+          window.clearTimeout(hover.current);
+          setOpen(false);
+        }}
         onFocus={() => setOpen(true)}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setOpen(false)}
         onKeyDown={(e: KeyboardEvent) => e.key === "Escape" && setOpen(false)}
@@ -160,17 +168,7 @@ export function Island({ whatsapp }: { whatsapp: string }) {
           inert={shape !== "compact" || undefined}
         >
           <a href="#top" className={s.ring} aria-label="Back to the top">
-            <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
-              <circle cx="16" cy="16" r="14" className={s.track} />
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                className={s.fill}
-                strokeDasharray={ring}
-                strokeDashoffset={ring * (1 - p)}
-              />
-            </svg>
+            <Progress p={p} ring={ring} />
             <Image src="/lume-mark.png" alt="" width={18} height={18} />
           </a>
           <span className={s.section}>{label}</span>
@@ -253,17 +251,7 @@ function Dock({
           onClick={() => setSheet(true)}
         >
           <span className={s.ring} aria-hidden="true">
-            <svg viewBox="0 0 32 32" width="32" height="32">
-              <circle cx="16" cy="16" r="14" className={s.track} />
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                className={s.fill}
-                strokeDasharray={ring}
-                strokeDashoffset={ring * (1 - p)}
-              />
-            </svg>
+            <Progress p={p} ring={ring} />
             <Image src="/lume-mark.png" alt="" width={18} height={18} />
           </span>
           <span className={s.section}>
@@ -325,5 +313,31 @@ function Dock({
         </div>
       )}
     </>
+  );
+}
+
+/** How far down the page you are, drawn in the LUME mark's own blue: deep core to bright petal tips. */
+function Progress({ p, ring }: { p: number; ring: number }) {
+  const id = useId();
+  return (
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#4373f1" />
+          <stop offset="0.5" stopColor="#0544e0" />
+          <stop offset="1" stopColor="#0075fa" />
+        </linearGradient>
+      </defs>
+      <circle cx="16" cy="16" r="14" className={s.track} />
+      <circle
+        cx="16"
+        cy="16"
+        r="14"
+        className={s.fill}
+        style={{ stroke: `url(#${id})` }}
+        strokeDasharray={ring}
+        strokeDashoffset={ring * (1 - p)}
+      />
+    </svg>
   );
 }

@@ -9,12 +9,17 @@ test("the page reads in full, and the FAQ opens", async ({ page }) => {
     "Every lead, answered while it’s still warm.",
   );
   for (const h of [
-    "Sound familiar?",
-    "Every lead in one list.",
+    "Most leads aren’t lost. They’re forgotten.",
+    "Every enquiry lands in one list.",
+    "Analytics that read like a colleague’s note.",
     "What people ask first.",
     "See LUME on your own leads.",
-  ])
-    await expect(page.getByRole("heading", { name: h })).toBeVisible();
+  ]) {
+    const head = page.getByRole("heading", { name: h });
+    await expect(head).toBeVisible();
+    // Finished, not waiting for a scroll that can't build it.
+    expect(await head.evaluate((e) => getComputedStyle(e.closest("[data-build]") ?? e).opacity)).toBe("1");
+  }
   await page.getByText("Do I need the WhatsApp Business API?").click();
   await expect(page.getByText(/LUME opens your own WhatsApp/)).toBeVisible();
 });

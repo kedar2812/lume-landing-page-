@@ -40,6 +40,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={geist.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Without JavaScript nothing builds with the scroll: show every built piece finished. */}
+        <noscript>
+          <style>{"[data-build]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
       </head>
       <body>
         {children}

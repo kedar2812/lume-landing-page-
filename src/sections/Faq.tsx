@@ -19,20 +19,8 @@ const QA: [string, string][] = [
     "On your own server. Every business runs its own LUME; nothing is shared with other businesses, and integrations stay off until you switch them on.",
   ],
   [
-    "Will my team actually use it?",
-    "Each person opens LUME to one screen, Today: who to contact, what's due and what's overdue, with the lead one tap away. It works the same on a phone.",
-  ],
-  [
-    "Can my reps see everyone's leads?",
-    "Only what their role allows. A rep sees their own leads, a team lead their team's, the owner everything. Exports can be locked, and every download is traceable.",
-  ],
-  [
-    "Can I see how each rep is doing?",
-    "Yes. Each rep has their own numbers and goals; you see the Team board — speed to first contact, replies, wins and follow-ups done on time, person by person.",
-  ],
-  [
-    "How do I try it?",
-    "Book a demo below, or message on WhatsApp. LUME's founder will walk you through it on a business like yours.",
+    "What happens when a salesperson leaves?",
+    "Their leads and follow-ups move to someone else in one step, and their access ends. While they're with you, a rep sees only what their role allows, and every export is traceable.",
   ],
 ];
 

@@ -73,7 +73,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
   }, [phone]);
 
   const head = (
-    <div className={s.head} style={{ transform: `translateY(${f.headY}px)`, opacity: f.headOpacity }}>
+    <div className={s.head} style={{ transform: `translateY(${f.headY * 30}vh)`, opacity: f.headOpacity }}>
       <Image
         className={s.mark}
         src="/lume-mark.png"
@@ -149,7 +149,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
         <div className={s.sticky}>
           <div className={s.glow} style={{ opacity: f.glow }} aria-hidden="true" />
           {head}
-          <div className={s.stageWrap}>
+          <div className={s.stageWrap} style={{ "--drop": `${f.drop * 38}vh` } as CSSProperties}>
             <div
               ref={stage}
               className={s.stage}

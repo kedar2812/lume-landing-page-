@@ -20,20 +20,13 @@ export function islandState(i: {
 
 /** The chapter a section belongs to, as the compact Island names it. */
 const CHAPTER_OF: Record<string, string> = {
-  problems: "The problems",
-  meet: "Meet LUME",
-  "one-list": "Meet LUME",
-  "follow-up": "Meet LUME",
-  actions: "Meet LUME",
-  team: "Meet LUME",
-  analytics: "Meet LUME",
-  caught: "Meet LUME",
-  security: "Meet LUME",
-  "your-day": "How it runs your day",
-  day: "How it runs your day",
-  phone: "How it runs your day",
-  results: "What changes",
-  private: "What changes",
+  problem: "The problem",
+  "one-list": "One list",
+  "your-day": "Your day",
+  whatsapp: "WhatsApp",
+  analytics: "Analytics",
+  team: "Your team",
+  phone: "On your phone",
   faq: "Questions",
   enquire: "Book a demo",
 };

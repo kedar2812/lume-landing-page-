@@ -37,10 +37,10 @@ describe("the Island's state (website spec §5.H)", () => {
     expect(at({ phone: true, notifying: true })).toBe("dock");
   });
   it("names the chapter being read", () => {
-    expect(sectionLabel("problems")).toBe("The problems");
-    expect(sectionLabel("actions")).toBe("Meet LUME");
-    expect(sectionLabel("phone")).toBe("How it runs your day");
-    expect(sectionLabel("private")).toBe("What changes");
+    expect(sectionLabel("problem")).toBe("The problem");
+    expect(sectionLabel("analytics")).toBe("Analytics");
+    expect(sectionLabel("team")).toBe("Your team");
+    expect(sectionLabel("phone")).toBe("On your phone");
     expect(sectionLabel("faq")).toBe("Questions");
     expect(sectionLabel(null)).toBe("LUME");
   });
@@ -94,7 +94,7 @@ describe("the Island", () => {
       within(sheet)
         .getAllByRole("link")
         .map((a) => a.textContent),
-    ).toEqual(expect.arrayContaining(["The problems", "Meet LUME", "Questions"]));
+    ).toEqual(expect.arrayContaining(["The problem", "What LUME does", "Questions"]));
     expect(within(sheet).getByRole("radio", { name: "Dark" })).toBeInTheDocument();
     expect(within(sheet).getByRole("link", { name: /WhatsApp/ })).toHaveAttribute(
       "href",

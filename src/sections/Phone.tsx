@@ -28,6 +28,7 @@ export function Phone() {
         <div className={s.fan}>
           <div
             className={`${s.device} ${s.left}`}
+            data-build=""
             style={{
               transform: `translateX(${105 * (1 - fan)}%) rotate(${-6 * fan}deg) translateY(${24 * (1 - fan)}px)`,
               opacity: fan,
@@ -37,6 +38,7 @@ export function Phone() {
           </div>
           <div
             className={`${s.device} ${s.middle}`}
+            data-build=""
             style={{
               transform: `translateY(${-24 + 90 * (1 - rise)}px) scale(${0.94 + 0.06 * rise})`,
               opacity: 0.2 + 0.8 * rise,
@@ -46,6 +48,7 @@ export function Phone() {
           </div>
           <div
             className={`${s.device} ${s.right}`}
+            data-build=""
             style={{
               transform: `translateX(${-105 * (1 - fan)}%) rotate(${6 * fan}deg) translateY(${24 * (1 - fan)}px)`,
               opacity: fan,

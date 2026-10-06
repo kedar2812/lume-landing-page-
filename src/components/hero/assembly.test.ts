@@ -53,4 +53,10 @@ describe("the hero at a point of the scroll", () => {
     expect([f.base, f.tilt, f.scale]).toEqual([1, 0, 1]);
     expect([f.headY, f.headOpacity, f.ctas, f.hint]).toEqual([0, 1, 1, false]);
   });
+  it("the screen rises into the headline's room as the headline lifts away", () => {
+    expect([heroFrame(0, 4).drop, heroFrame(0, 4).headOpacity]).toEqual([1, 1]);
+    expect([heroFrame(1, 4).drop, heroFrame(1, 4).headOpacity]).toEqual([0, 0]);
+    expect(heroFrame(0.36, 4).drop).toBeGreaterThan(0);
+    expect(heroFrame(0.36, 4).drop).toBeLessThan(1);
+  });
 });
