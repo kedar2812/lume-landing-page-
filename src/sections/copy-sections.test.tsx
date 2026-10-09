@@ -22,6 +22,10 @@ describe("the sections told in words (website spec §5)", () => {
     render(<Footer />);
     expect(screen.getByText(/© 2026 LUME · Kedar Uttam Gurav/)).toBeInTheDocument();
     expect(screen.getByText(/including the Limited Use requirements/)).toBeInTheDocument();
+    // Google's reviewers read the homepage for why LUME asks for Sheets and Calendar access.
+    expect(screen.getByText(/Google Sheets you pick/)).toBeInTheDocument();
+    expect(screen.getByText(/calendars you own, read-only/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "privacy policy" })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
   });
