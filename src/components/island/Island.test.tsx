@@ -104,4 +104,14 @@ describe("the Island", () => {
     expect(screen.queryByRole("dialog", { name: "Menu" })).not.toBeInTheDocument();
     expect(dock).toHaveFocus();
   });
+
+  it("on a phone the dock waits below the screen while the hero's own buttons show, then rises in", () => {
+    phone(true);
+    show();
+    const nav = screen.getByRole("navigation", { name: "Main", hidden: true });
+    expect(nav).toHaveAttribute("data-hidden");
+    act(() => void window.dispatchEvent(new CustomEvent("lume:hero", { detail: { p: 0.4 } })));
+    expect(nav).not.toHaveAttribute("data-hidden");
+    expect(within(nav).getByRole("link", { name: "Book a demo" })).toHaveAttribute("href", "#enquire");
+  });
 });

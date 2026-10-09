@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { Screen } from "@/components/Screen";
 import type { ScreenName } from "@/lib/screens";
 import { along, useBuild } from "@/motion/build";
@@ -16,6 +16,8 @@ export const NOTES: {
   chips: string[];
   shot: ScreenName;
   alt: string;
+  /** On a phone, the part of the screen worth reading: the point kept in view (% of the screen) and the zoom. */
+  focus: { x: number; y: number; zoom: number };
   from?: string;
 }[] = [
   {
@@ -25,6 +27,7 @@ export const NOTES: {
     chips: ["Instagram & Facebook forms", "Your website", "Google Sheets", "Calendly"],
     shot: "leads",
     alt: "LUME's leads: every enquiry in one list, with its stage and owner",
+    focus: { x: 33, y: 40, zoom: 2.3 },
   },
   {
     id: "your-day",
@@ -33,6 +36,7 @@ export const NOTES: {
     chips: ["Who to call first", "What’s overdue", "Today’s calls", "How the month is going"],
     shot: "today-rep",
     alt: "A rep's Today in LUME: their follow-ups, calls and numbers for the day",
+    focus: { x: 32, y: 22, zoom: 2.5 },
   },
   {
     id: "whatsapp",
@@ -45,6 +49,7 @@ export const NOTES: {
     ],
     shot: "action-whatsapp",
     alt: "A WhatsApp template in LUME with the lead's details filled in, ready to send",
+    focus: { x: 98, y: 12, zoom: 2.4 },
   },
   {
     id: "team",
@@ -53,6 +58,7 @@ export const NOTES: {
     chips: ["Their own Today", "Their own numbers and goals", "The Team board, for you", "Who needs a hand"],
     shot: "team",
     alt: "LUME's Team board: each rep's speed, replies, wins and follow-ups side by side",
+    focus: { x: 35, y: 11, zoom: 2.2 },
   },
 ];
 
@@ -67,10 +73,15 @@ function Note({ n }: { n: (typeof NOTES)[number] }) {
         <div
           className={s.card}
           data-build=""
-          style={{
-            transform: `translateY(${48 * (1 - card)}px) scale(${0.95 + 0.05 * card})`,
-            opacity: 0.3 + 0.7 * card,
-          }}
+          style={
+            {
+              transform: `translateY(${48 * (1 - card)}px) scale(${0.95 + 0.05 * card})`,
+              opacity: 0.3 + 0.7 * card,
+              "--fx": `${n.focus.x}%`,
+              "--fy": `${n.focus.y}%`,
+              "--zoom": n.focus.zoom,
+            } as CSSProperties
+          }
         >
           <Screen name={n.shot} alt={n.alt} className={s.shot} />
           <div className={s.veil}>

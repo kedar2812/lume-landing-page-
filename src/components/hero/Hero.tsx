@@ -19,11 +19,13 @@ import { TODAY_PARTS } from "@/components/lume/today";
 import { heroFrame, pieces as cut, stillFrame } from "./assembly";
 import s from "./hero.module.css";
 
-const PHONE = "(max-width: 900px)";
+const PHONE = "(max-width: 900px), (max-height: 520px)";
+// A screen too short to pin a build in (a phone on its side): the finished picture, as under reduced motion.
+const SHORT = "(max-height: 520px)";
 const onMedia = (cb: () => void) => {
-  const mq = window.matchMedia(PHONE);
-  mq.addEventListener?.("change", cb);
-  return () => mq.removeEventListener?.("change", cb);
+  const mq = [window.matchMedia(PHONE), window.matchMedia(SHORT)];
+  mq.forEach((m) => m.addEventListener?.("change", cb));
+  return () => mq.forEach((m) => m.removeEventListener?.("change", cb));
 };
 
 /**
@@ -33,7 +35,12 @@ const onMedia = (cb: () => void) => {
  * buttons leave for the Island. Under reduced motion it is simply the finished picture.
  */
 export function Hero({ whatsapp }: { whatsapp: string }) {
-  const reduce = useReducedMotion();
+  const short = useSyncExternalStore(
+    onMedia,
+    () => window.matchMedia(SHORT).matches,
+    () => false,
+  );
+  const reduce = useReducedMotion() || short;
   const phone = useSyncExternalStore(
     onMedia,
     () => window.matchMedia(PHONE).matches,
@@ -111,8 +118,10 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
     </div>
   );
 
-  // A phone: the headline, then LUME's phone Today rising into place with the scroll.
-  if (phone)
+  // A phone: the headline alone, then LUME's phone Today rising into the middle of the screen as the headline
+  // lifts away. Nothing of the phone shows until you scroll, like the dashboard on a desktop.
+  if (phone) {
+    const rise = reduce ? 1 : easeOut(Math.max(0, Math.min(1, (p - 0.08) / 0.62)));
     return (
       <section id="top" className={`${s.hero} ${s.phone}`} aria-labelledby="hero-h">
         <div ref={track} className={s.phoneTrack}>
@@ -120,10 +129,15 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
             {head}
             <div
               className={s.device}
-              style={{
-                transform: `translateY(${reduce ? 0 : 140 * (1 - Math.min(1, p / 0.6))}px) scale(${reduce ? 1 : 0.9 + 0.1 * Math.min(1, p / 0.6)})`,
-                opacity: reduce ? 1 : Math.min(1, 0.15 + p / 0.35),
-              }}
+              style={
+                reduce
+                  ? undefined
+                  : {
+                      transform: `translate(-50%, calc(-50% + ${((1 - rise) * 42).toFixed(2)}svh)) scale(${(0.9 + 0.1 * rise).toFixed(4)})`,
+                      opacity: Math.min(1, rise * 2.5),
+                      visibility: rise <= 0 ? "hidden" : "visible",
+                    }
+              }
             >
               <img
                 className={s.invLight}
@@ -145,6 +159,7 @@ export function Hero({ whatsapp }: { whatsapp: string }) {
         </div>
       </section>
     );
+  }
 
   return (
     <section id="top" className={s.hero} aria-labelledby="hero-h">
@@ -227,3 +242,5 @@ function Hint() {
     </div>
   );
 }
+
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);

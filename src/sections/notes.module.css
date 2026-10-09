@@ -80,11 +80,26 @@
   font-size: var(--fs-sm);
   opacity: 0.7;
 }
-/* A phone: the screen above, the words below it, never over it. */
+/* A phone: the screen above, the words below it, never over it. The screen is a square window onto the part
+   worth reading (each note's --fx/--fy/--zoom), at a size you can read, instead of the whole desktop shrunk to a
+   quarter. The image point at (--fx, --fy) sits at the same point of the window, so it never leaves a gap. */
 @media (max-width: 760px) {
   .card {
     display: flex;
     flex-direction: column;
+  }
+  .shot {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+  .card .shot img {
+    position: absolute;
+    left: var(--fx);
+    top: var(--fy);
+    width: calc(var(--zoom) * 100%);
+    max-width: none;
+    transform: translate(calc(var(--fx) * -1), calc(var(--fy) * -1));
   }
   .veil {
     position: static;

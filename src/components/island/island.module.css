@@ -204,6 +204,8 @@
   position: fixed;
   left: 12px;
   right: 12px;
+  max-width: 520px;
+  margin-inline: auto;
   bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 50;
   width: auto;
@@ -231,14 +233,40 @@
   cursor: pointer;
 }
 .menu .section {
+  flex: 0 1 auto;
   width: auto;
+  min-width: 0;
+  /* One line, always: a long chapter name ends in an ellipsis rather than doubling the dock's height. */
+  white-space: nowrap;
+}
+/* The narrowest phones: a little less padding on the button, so the chapter keeps more of its name. */
+@media (max-width: 360px) {
+  .dock {
+    gap: 4px;
+  }
+  .dock .cta,
+  .dock .wa {
+    padding-inline: 14px;
+  }
 }
 .chev {
   margin-left: auto;
   opacity: 0.6;
 }
-.dock .cta {
+.dock .cta,
+.dock .wa {
   min-height: 44px;
+}
+.dock {
+  transition:
+    transform 480ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 320ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+/* Waiting below the screen's edge until the hero's buttons have gone. */
+.dock[data-hidden] {
+  transform: translateY(calc(100% + 28px));
+  opacity: 0;
+  pointer-events: none;
 }
 .scrim {
   position: fixed;

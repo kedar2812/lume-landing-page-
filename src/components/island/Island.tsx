@@ -24,7 +24,8 @@ export const CHAPTERS = [
   { id: "faq", label: "Questions", short: "Questions" },
 ] as const;
 
-const PHONE = "(max-width: 760px)";
+// The dock for phones (either way up) and small tablets: the wide pill needs a laptop's width.
+const PHONE = "(max-width: 900px), (max-height: 520px)";
 const onScroll = (cb: () => void) => {
   window.addEventListener("scroll", cb, { passive: true });
   window.addEventListener("resize", cb);
@@ -115,7 +116,20 @@ export function Island({ whatsapp }: { whatsapp: string }) {
   const label = sectionLabel(active);
   const wa = `https://wa.me/${whatsapp}`;
 
-  if (phone) return <Dock label={label} p={p} ring={ring} wa={wa} sheet={sheet} setSheet={setSheet} />;
+  if (phone)
+    return (
+      <Dock
+        label={label}
+        p={p}
+        ring={ring}
+        wa={wa}
+        sheet={sheet}
+        setSheet={setSheet}
+        // Out of the way while the hero's own two buttons are on screen; it rises in as they leave.
+        shown={heroBuilding || y > 160}
+        atForm={active === "enquire"}
+      />
+    );
 
   const width = shape === "wide" ? widths.wide : shape === "notify" ? widths.notify : widths.compact;
   return (
@@ -216,6 +230,8 @@ function Dock({
   wa,
   sheet,
   setSheet,
+  shown,
+  atForm,
 }: {
   label: string;
   p: number;
@@ -223,6 +239,8 @@ function Dock({
   wa: string;
   sheet: boolean;
   setSheet: (v: boolean) => void;
+  shown: boolean;
+  atForm: boolean;
 }) {
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -250,7 +268,13 @@ function Dock({
   };
   return (
     <>
-      <nav aria-label="Main" data-state="dock" className={`${s.island} ${s.dock}`}>
+      <nav
+        aria-label="Main"
+        data-state="dock"
+        data-hidden={!shown || undefined}
+        inert={!shown || undefined}
+        className={`${s.island} ${s.dock}`}
+      >
         <button
           ref={button}
           type="button"
@@ -280,9 +304,17 @@ function Dock({
             <path d="m6 15 6-6 6 6" />
           </svg>
         </button>
-        <a className={s.cta} href="#enquire">
-          Book a demo
-        </a>
+        {/* At the form, a second "Book a demo" would only point at itself: WhatsApp instead. */}
+        {atForm ? (
+          <a className={s.wa} href={wa}>
+            <Image src="/brand/whatsapp-glyph-white.svg" alt="" width={18} height={18} />
+            WhatsApp
+          </a>
+        ) : (
+          <a className={s.cta} href="#enquire">
+            Book a demo
+          </a>
+        )}
       </nav>
       {sheet && (
         <div className={s.scrim} onClick={close}>

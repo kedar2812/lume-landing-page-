@@ -1,3 +1,7 @@
+/* The fanned phones may reach the screen's edge while they turn; never a sideways scroll. */
+.section {
+  overflow-x: clip;
+}
 .fan {
   position: relative;
   margin: clamp(40px, 6vw, 72px) auto 0;
@@ -28,12 +32,39 @@
 .middle {
   z-index: 2;
 }
+/* A small screen: the middle phone in front, the other two tucked half behind it and fanned, all inside the page. */
 @media (max-width: 640px) {
-  .left,
-  .right {
-    display: none;
+  /* The fanned phones may reach the screen's edge while they turn; never a sideways scroll. */
+  .section {
+    overflow-x: clip;
+  }
+  .fan {
+    margin-top: 44px;
+    padding-bottom: 8px;
   }
   .middle {
-    flex-basis: min(300px, 78vw);
+    flex: 0 0 min(260px, 64vw);
+  }
+  .left,
+  .right {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: min(220px, 53vw);
+    margin-left: calc(min(220px, 53vw) / -2);
+    padding: 7px;
+    border-radius: 38px;
+    transform-origin: 50% 100%;
+  }
+  .left img,
+  .right img {
+    border-radius: 31px;
+  }
+  .middle {
+    padding: 8px;
+    border-radius: 40px;
+  }
+  .middle img {
+    border-radius: 32px;
   }
 }

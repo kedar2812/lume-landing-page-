@@ -255,43 +255,106 @@
   }
 }
 
-/* A phone: the headline, then the phone Today rising with the scroll. */
+/* A phone: the headline alone in the middle of the screen, then the phone Today rising into its place as the
+   headline lifts away. The pinned screen is exactly the window, so nothing waits empty below it. */
 .phoneTrack {
   position: relative;
   height: 170vh;
+  height: 170svh;
 }
 .phoneSticky {
   position: sticky;
   top: 0;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
   overflow: hidden;
-  padding-bottom: 96px;
 }
 .phone .head {
-  padding-top: max(72px, env(safe-area-inset-top));
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: max(28px, env(safe-area-inset-top)) var(--gutter) max(72px, calc(8svh + 24px));
+  pointer-events: none;
+}
+.phone .head a {
+  pointer-events: auto;
+}
+.phone .mark {
+  margin-bottom: 14px;
+}
+.phone .sub {
+  margin-top: 14px;
+  max-width: 34ch;
 }
 .phone .ctas {
   flex-direction: column;
   align-items: stretch;
+  width: 100%;
   max-width: 360px;
-  margin-inline: auto;
+  margin: 26px auto 0;
 }
 .device {
-  position: relative;
-  margin: 26px auto 0;
-  width: clamp(150px, calc((100svh - 400px) * 0.46), 240px);
+  position: absolute;
+  left: 50%;
+  /* Centred in the room the dock leaves (it sits at the foot of the screen). */
+  top: calc(50% - 30px);
+  width: min(78vw, 330px, calc((100svh - 150px) / 2.18));
   padding: 7px;
   border-radius: 40px;
   background: #0b0c10;
   box-shadow:
     0 0 0 1.5px rgba(255, 255, 255, 0.08) inset,
-    0 40px 100px rgba(0, 0, 0, 0.5);
+    0 40px 100px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 60%;
   will-change: transform, opacity;
 }
 .device img {
   border-radius: 33px;
 }
-@media (prefers-reduced-motion: reduce) {
+/* On a phone the hint sits centred above the thumb, not in a corner, and points down the page. */
+.phone .hint {
+  left: 0;
+  right: 0;
+  justify-content: center;
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 16px));
+}
+/* On touch, a mouse means nothing: a chevron nudging down the page instead. */
+@media (pointer: coarse) {
+  .mouse {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 0;
+  }
+  .mouse::after {
+    left: 2px;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    border-radius: 1px;
+    background: none;
+    border-right: 1.75px solid currentColor;
+    border-bottom: 1.75px solid currentColor;
+    animation-name: nudge;
+  }
+}
+@keyframes nudge {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px) rotate(45deg);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(5px) rotate(45deg);
+  }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 520px) {
   .phoneTrack {
     height: auto;
   }
@@ -306,6 +369,21 @@
   }
   .head {
     position: relative;
+  }
+  .phoneSticky {
+    height: auto;
+    overflow: visible;
+  }
+  .phone .head {
+    padding-bottom: 0;
+  }
+  .device {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(78vw, 330px);
+    margin: 40px auto 0;
+    transform: none;
   }
   .stageWrap {
     padding-top: 48px;

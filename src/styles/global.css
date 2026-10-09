@@ -57,11 +57,12 @@ a {
   border-radius: 10px;
   background: var(--surface);
   color: var(--text);
-  box-shadow: var(--shadow-pop);
-  transform: translateY(-160%);
+  transform: translateY(calc(-100% - 40px));
 }
+/* Its shadow only when it's shown: parked above the window, a blurred shadow would still bleed into the top-left. */
 .skip:focus-visible {
   transform: none;
+  box-shadow: var(--shadow-pop);
 }
 .wrap {
   width: 100%;

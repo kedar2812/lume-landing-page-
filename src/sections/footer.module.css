@@ -39,8 +39,17 @@
   margin: 0;
   grid-column: 1 / -1;
 }
+/* Room under the last line for the dock (phones, small tablets), so it never sits on the copyright. */
+@media (max-width: 900px), (max-height: 520px) {
+  .foot {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+}
 @media (max-width: 760px) {
   .in {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .links {
+    margin-left: -10px;
   }
 }
