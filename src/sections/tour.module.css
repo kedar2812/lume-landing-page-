@@ -1,0 +1,169 @@
+/* The tour: a rounded band of live gradient in the LUME mark's blues (#0048E4 → #0066F5 → #00A0FC), the demo in a
+   rounded glass-edged box in front. Only transform moves; the band, not the window, is what lives. */
+.section {
+  position: relative;
+  padding: clamp(40px, 7vw, 96px) 0;
+}
+.band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: clamp(26px, 3.2vw, 44px);
+  padding: clamp(36px, 6vw, 84px) clamp(18px, 5vw, 72px) clamp(28px, 5vw, 72px);
+  background: #0048e4;
+  color: #fff;
+  box-shadow: 0 40px 120px -40px rgba(0, 54, 184, 0.55);
+}
+.live {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.9;
+  will-change: transform;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-play-state: paused;
+}
+.band[data-on] .blob {
+  animation-play-state: running;
+}
+.b1 {
+  width: 62%;
+  aspect-ratio: 1;
+  left: -6%;
+  top: -10%;
+  background: radial-gradient(closest-side, #0066f5, rgba(0, 102, 245, 0));
+  animation-name: drift1;
+  animation-duration: 23s;
+}
+.b2 {
+  width: 56%;
+  aspect-ratio: 1;
+  right: -8%;
+  top: 4%;
+  background: radial-gradient(closest-side, #00a0fc, rgba(0, 160, 252, 0));
+  animation-name: drift2;
+  animation-duration: 29s;
+}
+.b3 {
+  width: 48%;
+  aspect-ratio: 1;
+  left: 22%;
+  bottom: -14%;
+  background: radial-gradient(closest-side, #5ab8ff, rgba(90, 184, 255, 0));
+  opacity: 0.7;
+  animation-name: drift3;
+  animation-duration: 34s;
+}
+.b4 {
+  width: 44%;
+  aspect-ratio: 1;
+  right: 10%;
+  bottom: -18%;
+  background: radial-gradient(closest-side, #0036b8, rgba(0, 54, 184, 0));
+  animation-name: drift4;
+  animation-duration: 27s;
+}
+@keyframes drift1 {
+  to {
+    transform: translate(18%, 14%) scale(1.12);
+  }
+}
+@keyframes drift2 {
+  to {
+    transform: translate(-16%, 18%) scale(0.92);
+  }
+}
+@keyframes drift3 {
+  to {
+    transform: translate(14%, -16%) scale(1.15);
+  }
+}
+@keyframes drift4 {
+  to {
+    transform: translate(-20%, -10%) scale(1.08);
+  }
+}
+
+.words {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.eyebrow {
+  color: rgba(255, 255, 255, 0.78);
+}
+.h {
+  margin-inline: auto;
+  color: #fff;
+}
+.lede {
+  margin-inline: auto;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* The box: rounded, a bright glass edge catching the light, deep below. */
+.box {
+  position: relative;
+  container-type: inline-size;
+  max-width: 1120px;
+  margin: clamp(28px, 4vw, 52px) auto 0;
+  padding: clamp(6px, 0.8vw, 10px);
+  border-radius: clamp(20px, 2.4vw, 30px);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 30px 80px -24px rgba(0, 20, 80, 0.55);
+}
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(14px, 1.8vw, 22px);
+  background: #f3f4f6;
+  /* Supademo's player: its 40px window bar over the tour's own 16:10, edge to edge. */
+  height: calc(100cqw / 1.6 + 40px);
+}
+.iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .band {
+    border-radius: 24px;
+  }
+  .live {
+    inset: -40%;
+  }
+  .blob {
+    filter: blur(48px);
+  }
+  /* On a phone the player puts its controls below the demo: the demo's 16:10 plus their bar. */
+  .frame {
+    height: calc(100cqw / 1.6 + 50px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .band[data-on] .blob {
+    animation: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .box {
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: none;
+  }
+}
