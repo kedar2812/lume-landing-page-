@@ -1,6 +1,6 @@
 <div class="kicker">LUME</div>
 <h1>Privacy policy</h1>
-<p class="updated">Last updated October 6, 2026</p>
+<p class="updated">Last updated October 24, 2026</p>
 
 <div class="summary">
   <p><strong>In short:</strong></p>
@@ -16,13 +16,18 @@
       Google data is used only to provide LUME's features to you. It is never sold, never used for advertising
       and never used to train AI models.
     </li>
-    <li>You can disconnect at any time, in LUME or in your Google account.</li>
+    <li>
+      If a Business connects its WhatsApp Business number, the messages on that number come to the Business's
+      own LUME and stay there. They are never sold, never used for advertising and never used to train AI
+      models.
+    </li>
+    <li>You can disconnect at any time, in LUME, in your Google account or in Meta's business settings.</li>
   </ul>
 </div>
 
 <nav class="toc" aria-label="On this page">
   <a href="#who">Who we are</a><a href="#how">How LUME runs</a><a href="#in-lume">Data in LUME</a
-  ><a href="#google">Google user data</a><a href="#limited-use">Limited Use</a
+  ><a href="#google">Google user data</a><a href="#limited-use">Limited Use</a><a href="#whatsapp">WhatsApp</a
   ><a href="#relay">The connection service</a><a href="#site">This website</a><a href="#security">Security</a
   ><a href="#retention">Keeping and deleting</a><a href="#rights">Your rights</a
   ><a href="#contact">Contact</a>
@@ -186,14 +191,92 @@
   </li>
 </ul>
 
+<h2 id="whatsapp">WhatsApp</h2>
+<p>
+  A Business can connect the WhatsApp Business app number it already uses to its LUME, through Meta's WhatsApp
+  Business Platform. This is always optional and off until an admin of the Business switches it on and
+  connects the number on Meta's own screens, where Meta shows what LUME asks for. LUME asks Meta for two
+  permissions:
+  <code>whatsapp_business_management</code> (to connect the number and see its account and approved message
+  templates) and <code>whatsapp_business_messaging</code> (to receive and send messages on that number).
+</p>
+
+<h3>What LUME receives</h3>
+<ul>
+  <li>
+    <strong>Messages:</strong> messages people send to the connected number, and messages the Business sends
+    from its phone, with their time and delivery status (sent, delivered, read).
+  </li>
+  <li><strong>Photos, voice notes, videos and documents</strong> in those messages, up to 25 MB each.</li>
+  <li><strong>Who wrote:</strong> the sender's WhatsApp number and the profile name they set in WhatsApp.</li>
+  <li>
+    <strong>Past chats,</strong> only if the person connecting the number chooses to share them on Meta's
+    screen. Meta may also send the contacts saved in the WhatsApp Business app; LUME doesn't keep them.
+  </li>
+  <li>
+    <strong>The number's details:</strong> its display number, its verified business name, and an access token
+    Meta grants for that number.
+  </li>
+</ul>
+
+<h3>How it is used and kept</h3>
+<ul>
+  <li>
+    Messages are put on the matching lead in the Business's own LUME, so its team can see who replied and
+    follow up. Messages from numbers that aren't a lead wait in "Not a lead yet" and are deleted after 14 days
+    unless someone in the Business makes them a lead.
+  </li>
+  <li>
+    Everything is stored on the Business's own server: messages in its database and files in its own storage.
+    The access token is encrypted there. We don't receive copies.
+  </li>
+  <li>
+    If the Business switches on replying from LUME, messages its team writes in LUME are sent through Meta's
+    WhatsApp Business Platform from the connected number. Meta's own terms and privacy policy apply to
+    messages on WhatsApp, and Meta bills the Business directly for messages it charges for.
+  </li>
+  <li>
+    If the Business also switches on LUME AI, a lead's recent history, which can include its WhatsApp
+    messages, is sent to the AI provider that Business's LUME is set up with, only when someone asks for a
+    suggestion or a summary, and never with a phone number or email address.
+  </li>
+  <li>
+    WhatsApp data is never sold, never transferred to advertising platforms, data brokers or information
+    resellers, never used for advertising and never used to train AI models. It is shown only to people in the
+    Business whose role lets them see the lead it belongs to.
+  </li>
+</ul>
+
+<h3>Disconnecting and deletion</h3>
+<ul>
+  <li>
+    An admin of the Business can disconnect the number in LUME, or remove LUME in Meta's business settings.
+    LUME then stops receiving and sending messages on that number straight away.
+  </li>
+  <li>
+    Messages already on leads stay in the Business's LUME as its records, like any other lead activity, until
+    the Business deletes them. The Business can also choose how long LUME keeps WhatsApp files.
+  </li>
+  <li>
+    To have WhatsApp messages about you deleted, ask the Business you messaged. If you can't reach it, contact
+    us and we will help.
+  </li>
+</ul>
+
 <h2 id="relay">The connection service (connect.lumecrm.in)</h2>
 <p>
-  Because every Business runs LUME at its own address, Google connects to one small service we run at
-  connect.lumecrm.in. It holds LUME's Google app credentials, shows Google's file picker and passes your new
-  connection back to your Business's server, sealed so only that server can open it.
+  Because every Business runs LUME at its own address, Google and Meta connect to one small service we run at
+  connect.lumecrm.in. It holds LUME's Google and Meta app credentials, shows Google's file picker and Meta's
+  WhatsApp sign-up, and passes your new connection back to your Business's server, sealed so only that server
+  can open it.
 </p>
 <ul>
   <li>It never receives lead data, sheet contents or calendar events.</li>
+  <li>
+    WhatsApp messages for a connected number pass through it on their way from Meta to the Business's server.
+    It checks that each one really came from Meta and forwards it straight away. It does not store messages,
+    files or WhatsApp access tokens, and it keeps no list of numbers.
+  </li>
   <li>
     During a connection it holds the access Google grants in memory for at most ten minutes, then forgets it.
     It does not store refresh tokens.
@@ -223,18 +306,18 @@
 
 <h2 id="security">Security</h2>
 <p>
-  LUME uses encrypted connections everywhere, encrypts contact details, Google connections and other secrets
-  at rest, offers two-step sign-in, limits each role to what it needs, signs disabled accounts out everywhere
-  and records important actions in an audit log that can't be edited. No system is perfectly secure; if we
-  learn of a breach affecting your data, we will tell the affected Business without undue delay so it can tell
-  you.
+  LUME uses encrypted connections everywhere, encrypts contact details, Google and WhatsApp connections and
+  other secrets at rest, offers two-step sign-in, limits each role to what it needs, signs disabled accounts
+  out everywhere and records important actions in an audit log that can't be edited. No system is perfectly
+  secure; if we learn of a breach affecting your data, we will tell the affected Business without undue delay
+  so it can tell you.
 </p>
 
 <h2 id="retention">Keeping and deleting</h2>
 <p>
-  Data in a Business's LUME is kept for as long as the Business keeps it, and Google data is deleted as
-  described above. When a Business stops using LUME, it can export its data, and LUME is then removed from its
-  server.
+  Data in a Business's LUME is kept for as long as the Business keeps it, and Google and WhatsApp data are
+  deleted as described above. When a Business stops using LUME, it can export its data, and LUME is then
+  removed from its server.
 </p>
 
 <h2 id="rights">Your rights</h2>
