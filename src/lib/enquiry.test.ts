@@ -55,9 +55,9 @@ describe("the enquiry", () => {
   it("WhatsApp to LUME, with the details already written", () => {
     const link = whatsappLink(
       { name: "Ananya Rao", business: "Petal & Plate Studio", whatsapp: "+919812345678", teamSize: "2-5" },
-      "918805895066",
+      "919764256655",
     );
-    expect(link.startsWith("https://wa.me/918805895066?text=")).toBe(true);
+    expect(link.startsWith("https://wa.me/919764256655?text=")).toBe(true);
     const text = decodeURIComponent(link.split("text=")[1]!);
     expect(text).toContain("Ananya Rao");
     expect(text).toContain("Petal & Plate Studio");

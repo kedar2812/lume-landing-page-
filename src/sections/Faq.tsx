@@ -11,6 +11,10 @@ const QA: [string, string][] = [
     "No. LUME opens your own WhatsApp with the message already written, so there's no API to set up and no per-message charge through LUME. You keep the WhatsApp you use today.",
   ],
   [
+    "Can my leads' WhatsApp replies come into LUME?",
+    "Yes, once Meta approves LUME's WhatsApp connection, which is in review now. You connect the WhatsApp Business number you already use: every reply a lead sends lands on that lead in LUME, your team answers from LUME, and the WhatsApp Business app keeps working on your phone. Meta's own charges for business messages apply to messages sent this way.",
+  ],
+  [
     "Can I bring my Excel sheet?",
     "Yes. Import a CSV or a Google Sheet; LUME matches your columns, catches duplicates and fixes phone numbers as it goes.",
   ],

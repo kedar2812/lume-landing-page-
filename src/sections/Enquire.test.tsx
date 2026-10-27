@@ -16,7 +16,7 @@ const fill = async () => {
 
 describe("the enquiry (owner's redesign: seven questions in one go)", () => {
   it("asks all seven at once, as a plain form that works without JavaScript", () => {
-    render(<Enquire whatsapp="918805895066" />);
+    render(<Enquire whatsapp="919764256655" />);
     const form = screen.getByRole("form", { name: "Book a demo" });
     expect(form).toHaveAttribute("action", "/api/enquire");
     expect(form).toHaveAttribute("method", "post");
@@ -33,11 +33,11 @@ describe("the enquiry (owner's redesign: seven questions in one go)", () => {
     expect(screen.queryByRole("button", { name: "Continue" })).toBeNull();
     expect(screen.getByRole("link", { name: /WhatsApp/ })).toHaveAttribute(
       "href",
-      "https://wa.me/918805895066",
+      "https://wa.me/919764256655",
     );
   });
   it("the country code: India first and chosen, every other country after", async () => {
-    render(<Enquire whatsapp="918805895066" />);
+    render(<Enquire whatsapp="919764256655" />);
     const code = screen.getByLabelText("Country code") as HTMLSelectElement;
     expect(code.value).toBe("IN");
     expect(code.options[0]!.textContent).toContain("+91");
@@ -46,13 +46,13 @@ describe("the enquiry (owner's redesign: seven questions in one go)", () => {
     expect(screen.getByTestId("dial")).toHaveTextContent("+971");
   });
   it("never speaks for a person: LUME replies", () => {
-    render(<Enquire whatsapp="918805895066" />);
+    render(<Enquire whatsapp="919764256655" />);
     expect(document.body.textContent).not.toMatch(/founder/i);
   });
   it("says what's missing in words beside the field, before sending", async () => {
     const f = vi.fn();
     vi.stubGlobal("fetch", f);
-    render(<Enquire whatsapp="918805895066" />);
+    render(<Enquire whatsapp="919764256655" />);
     await userEvent.click(screen.getByRole("button", { name: "Book my demo" }));
     expect(screen.getByLabelText("Your name")).toHaveAccessibleDescription("Type your name.");
     expect(screen.getByLabelText("Your name")).toHaveAttribute("aria-invalid", "true");
@@ -64,7 +64,7 @@ describe("the enquiry (owner's redesign: seven questions in one go)", () => {
       vi.fn(async () => Response.json({ ok: true, filed: true })),
     );
     vi.spyOn(Date, "now").mockReturnValueOnce(0).mockReturnValue(10_000);
-    render(<Enquire whatsapp="918805895066" />);
+    render(<Enquire whatsapp="919764256655" />);
     await fill();
     await userEvent.click(screen.getByRole("button", { name: "Book my demo" }));
     const done = await screen.findByRole("status");
@@ -72,13 +72,13 @@ describe("the enquiry (owner's redesign: seven questions in one go)", () => {
     expect(done.textContent).not.toMatch(/founder/i);
   });
   it("the dashboard down: WhatsApp opens with the details", async () => {
-    const wa = "https://wa.me/918805895066?text=Hi";
+    const wa = "https://wa.me/919764256655?text=Hi";
     vi.stubGlobal(
       "fetch",
       vi.fn(async () => Response.json({ ok: false, whatsapp: wa }, { status: 502 })),
     );
     const go = vi.fn();
-    render(<Enquire whatsapp="918805895066" go={go} />);
+    render(<Enquire whatsapp="919764256655" go={go} />);
     await fill();
     await userEvent.click(screen.getByRole("button", { name: "Book my demo" }));
     await vi.waitFor(() => expect(go).toHaveBeenCalledWith(wa));

@@ -41,6 +41,6 @@ test("the form posts as a plain form and comes back", async ({ page }) => {
   // (Chromium follows wa.me's own redirect before a route can answer it, so either address counts.)
   await expect
     .poll(() => to)
-    .toMatch(/wa\.me\/918805895066\?text=|whatsapp\.com\/send\/\?phone=918805895066&text=/);
+    .toMatch(/wa\.me\/919764256655\?text=|whatsapp\.com\/send\/\?phone=919764256655&text=/);
   expect(decodeURIComponent(to.replace(/\+/g, " "))).toContain("Petal & Plate Studio");
 });

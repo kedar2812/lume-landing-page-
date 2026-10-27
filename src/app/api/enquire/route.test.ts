@@ -13,7 +13,7 @@ const OK = {
 const ENV = {
   LICENCE_URL: "https://licence.test",
   ENQUIRY_TOKEN: "tok-secret-123",
-  NEXT_PUBLIC_WHATSAPP: "918805895066",
+  NEXT_PUBLIC_WHATSAPP: "919764256655",
 };
 let calls: string[] = [];
 const mockFetch = (o: { licence: number }) => {
@@ -75,7 +75,7 @@ describe("POST /api/enquire (website spec §8)", () => {
     const r = await POST(req(OK));
     expect(r.status).toBe(502);
     const { whatsapp } = (await r.json()) as { whatsapp: string };
-    expect(whatsapp).toMatch(/^https:\/\/wa\.me\/918805895066\?text=/);
+    expect(whatsapp).toMatch(/^https:\/\/wa\.me\/919764256655\?text=/);
     expect(decodeURIComponent(whatsapp)).toContain("Petal & Plate Studio");
   });
   it("a bot is thanked and dropped: the hidden field filled, or sent in under 3 seconds", async () => {
@@ -96,7 +96,7 @@ describe("POST /api/enquire (website spec §8)", () => {
     expect([r.status, r.headers.get("location")]).toEqual([303, "/?sent=1#enquire"]);
     mockFetch({ licence: 500 });
     const down = await POST(formReq(OK));
-    expect(down.headers.get("location")).toMatch(/^https:\/\/wa\.me\/918805895066/);
+    expect(down.headers.get("location")).toMatch(/^https:\/\/wa\.me\/919764256655/);
   });
   it("never hands the token to the browser, and never logs it or what was sent", async () => {
     const log = vi.spyOn(console, "log").mockImplementation(() => undefined);

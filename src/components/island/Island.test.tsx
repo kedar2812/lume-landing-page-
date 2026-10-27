@@ -50,7 +50,7 @@ describe("the Island", () => {
   const show = () =>
     render(
       <ThemeProvider>
-        <Island whatsapp="918805895066" />
+        <Island whatsapp="919764256655" />
       </ThemeProvider>,
     );
 
@@ -64,7 +64,7 @@ describe("the Island", () => {
     expect(within(nav).getAllByRole("link", { name: /Book a demo/ })[0]).toHaveAttribute("href", "#enquire");
     expect(within(nav).getAllByRole("link", { name: /WhatsApp/ })[0]).toHaveAttribute(
       "href",
-      "https://wa.me/918805895066",
+      "https://wa.me/919764256655",
     );
   });
 
@@ -98,7 +98,7 @@ describe("the Island", () => {
     expect(within(sheet).getByRole("radio", { name: "Dark" })).toBeInTheDocument();
     expect(within(sheet).getByRole("link", { name: /WhatsApp/ })).toHaveAttribute(
       "href",
-      "https://wa.me/918805895066",
+      "https://wa.me/919764256655",
     );
     await userEvent.keyboard("{Escape}");
     expect(screen.queryByRole("dialog", { name: "Menu" })).not.toBeInTheDocument();

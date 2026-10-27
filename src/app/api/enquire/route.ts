@@ -26,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
       "/?retry=1#enquire",
     );
   }
-  const to = process.env.NEXT_PUBLIC_WHATSAPP ?? "918805895066";
+  const to = process.env.NEXT_PUBLIC_WHATSAPP ?? "919764256655";
 
   // A bot: thanked, and nothing sent anywhere.
   if (String(raw.website ?? "") !== "" || Number(raw.t ?? 0) < MIN_MS)

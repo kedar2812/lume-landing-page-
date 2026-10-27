@@ -11,7 +11,7 @@ import { Phone } from "@/sections/Phone";
 import { Tour } from "@/sections/Tour";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP ?? "918805895066";
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP ?? "919764256655";
 
 /**
  * lumecrm.in, small on purpose (owner's redesign, 2026-10-06): the hero, the problem in one line, the 2-minute tour

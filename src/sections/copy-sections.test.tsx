@@ -12,9 +12,13 @@ describe("the sections told in words (website spec §5)", () => {
   it("FAQ: the objections, answered in the page even without JavaScript", () => {
     render(<Faq />);
     const qs = screen.getAllByRole("group").length;
-    expect(qs).toBe(4);
+    expect(qs).toBe(5);
     expect(screen.getByText("Do I need the WhatsApp Business API?")).toBeInTheDocument();
     expect(screen.getByText(/LUME opens your own WhatsApp/)).toBeInTheDocument();
+    // Meta's reviewers read the homepage for the service LUME's WhatsApp connection gives, and when it arrives.
+    expect(screen.getByText("Can my leads' WhatsApp replies come into LUME?")).toBeInTheDocument();
+    expect(screen.getByText(/once Meta approves LUME's WhatsApp connection/)).toBeInTheDocument();
+    expect(screen.getByText(/WhatsApp Business app keeps working on your phone/)).toBeInTheDocument();
     expect(screen.getByText("What happens when a salesperson leaves?")).toBeInTheDocument();
   });
 
