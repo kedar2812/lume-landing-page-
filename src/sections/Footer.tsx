@@ -13,9 +13,10 @@ export function Footer() {
         </Link>
         <p className={s.google}>
           Continue with Google is optional. It lets you import the Google Sheets you pick in Google’s own
-          picker, and shows your meetings with leads from calendars you own, read-only; LUME never changes an
-          event. See the <Link href="/privacy">privacy policy</Link> for exactly what LUME reads. LUME’s use
-          of information received from Google APIs adheres to the{" "}
+          picker, and shows your meetings with leads from calendars you own. Only if you switch on Google Meet
+          links does LUME add the calls LUME AI books to your own calendar, with a Meet link; it never changes
+          your other events. See the <Link href="/privacy">privacy policy</Link> for exactly what LUME reads
+          and adds. LUME’s use of information received from Google APIs adheres to the{" "}
           <a href="https://developers.google.com/terms/api-services-user-data-policy">
             Google API Services User Data Policy
           </a>

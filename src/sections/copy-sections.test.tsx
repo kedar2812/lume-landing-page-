@@ -28,7 +28,11 @@ describe("the sections told in words (website spec §5)", () => {
     expect(screen.getByText(/including the Limited Use requirements/)).toBeInTheDocument();
     // Google's reviewers read the homepage for why LUME asks for Sheets and Calendar access.
     expect(screen.getByText(/Google Sheets you pick/)).toBeInTheDocument();
-    expect(screen.getByText(/calendars you own, read-only/)).toBeInTheDocument();
+    expect(screen.getByText(/meetings with leads from calendars you own/)).toBeInTheDocument();
+    // The one write (spec 2026-11-03, LUME's Meet links): only when switched on, only the calls LUME AI books.
+    expect(
+      screen.getByText(/add the calls LUME AI books to your own calendar, with a Meet link/),
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "privacy policy" })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
