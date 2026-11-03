@@ -10,9 +10,9 @@
     </li>
     <li>
       If you connect a Google account, LUME reads only the Google Sheets you pick and, if your business uses
-      it, your calendar events. LUME adds an event to your calendar only if you switch on “Google Meet link”
-      and allow it: then the calls LUME AI books for you go into your calendar with a Meet link. Otherwise
-      LUME never changes anything in your Google account.
+      it, your calendar events, read-only. Only if you switch on “Google Meet link” and allow it does LUME
+      make a calendar of its own in your Google Calendar, “LUME calls”, for the calls LUME AI books, each with
+      a Meet link. LUME never changes your own calendars or events.
     </li>
     <li>
       Google data is used only to provide LUME's features to you. It is never sold, never used for advertising
@@ -116,16 +116,15 @@
     </td>
   </tr>
   <tr>
-    <th>Events on calendars you own, to add LUME AI's calls<br /><code>calendar.events.owned</code></th>
+    <th>A calendar of LUME's own, for LUME AI's calls<br /><code>calendar.app.created</code></th>
     <td>
       Asked for only if you switch on “Google Meet link” in LUME's LUME AI settings and press “Let LUME add
-      calls to your Google Calendar”, on its own Google consent screen. When LUME AI agrees a call with one of
-      your leads, LUME adds that one call to your own primary calendar (“Call with” the lead's name, its time,
-      and a new Google Meet link) and sends the lead the link. LUME doesn't invite the lead through Google or
-      send Google's emails, and it adds or removes only the events it created for calls LUME AI booked. It
-      can't reach calendars that other people share with you. This permission covers reading too, so LUME uses
-      it in place of the read-only one above for your meetings with leads. If you move or cancel one of these
-      calls in Google Calendar, LUME's copy moves or is cancelled too.
+      calls to your Google Calendar”, on its own Google consent screen. LUME makes one calendar of its own in
+      your Google Calendar, called “LUME calls”. When LUME AI agrees a call with one of your leads, LUME adds
+      that one call to it (“Call with” the lead's name, its time, and a new Google Meet link) and sends the
+      lead the link. LUME doesn't invite the lead through Google or send Google's emails. This permission
+      can't change any calendar LUME didn't make, so your own calendars stay exactly as they are. If you move
+      or cancel one of these calls in Google Calendar, LUME's copy moves or is cancelled too.
     </td>
   </tr>
   <tr>
@@ -148,7 +147,7 @@
   </li>
   <li>
     <strong>Calls LUME AI booked:</strong> the Google event's id and its Meet link, with the call in your
-    Business's LUME.
+    Business's LUME, and the id of the “LUME calls” calendar LUME made.
   </li>
   <li>
     <strong>From your calendar:</strong> only events that match a lead in your Business's LUME (by an
@@ -181,8 +180,8 @@
   <li>
     <strong>Calendar:</strong> disconnecting in LUME deletes your connection and every meeting that connection
     brought in, straight away. To stop LUME adding calls but keep reading, switch “Google Meet link” off, or
-    connect your calendar again in Settings → Calendar, which asks only for the read-only permissions. Calls
-    already added stay in your calendar until you delete them.
+    connect your calendar again in Settings → Calendar, which asks only for the read-only permissions. The
+    “LUME calls” calendar and the calls in it stay in your Google Calendar until you delete them there.
   </li>
   <li>
     <strong>A sheet:</strong> removing it in LUME deletes LUME's Google access to it straight away, and LUME

@@ -31,7 +31,7 @@ describe("the sections told in words (website spec §5)", () => {
     expect(screen.getByText(/meetings with leads from calendars you own/)).toBeInTheDocument();
     // The one write (spec 2026-11-03, LUME's Meet links): only when switched on, only the calls LUME AI books.
     expect(
-      screen.getByText(/add the calls LUME AI books to your own calendar, with a Meet link/),
+      screen.getByText(/add the calls LUME AI books to a “LUME calls” calendar of its own/),
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "privacy policy" })).toHaveAttribute("href", "/privacy");
     expect(screen.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
