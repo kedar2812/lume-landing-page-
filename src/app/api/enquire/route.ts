@@ -19,28 +19,23 @@ export async function POST(req: Request): Promise<Response> {
       ? ((await req.json()) as Record<string, unknown>)
       : Object.fromEntries((await req.formData()).entries());
   } catch {
-    return answer(
-      html,
-      400,
-      { errors: { form: "That didn't arrive whole. Try again." } },
-      "/?retry=1#enquire",
-    );
+    return answer(html, 400, { errors: { form: "That didn't arrive whole. Try again." } }, "/?retry=1#demo");
   }
   const to = process.env.NEXT_PUBLIC_WHATSAPP ?? "919764256655";
 
   // A bot: thanked, and nothing sent anywhere.
   if (String(raw.website ?? "") !== "" || Number(raw.t ?? 0) < MIN_MS)
-    return answer(html, 200, { ok: true, filed: false }, "/?sent=1#enquire");
+    return answer(html, 200, { ok: true, filed: false }, "/?sent=1#demo-sent");
 
   const p = enquirySchema.safeParse(raw);
   if (!p.success) {
     const errors: Record<string, string> = {};
     for (const i of p.error.issues) errors[String(i.path[0] ?? "form")] ??= i.message;
-    return answer(html, 400, { errors }, "/?retry=1#enquire");
+    return answer(html, 400, { errors }, "/?retry=1#demo");
   }
   const filed = await fileWithLicence(p.data);
   console.log(JSON.stringify({ msg: "enquiry", filed }));
-  if (filed) return answer(html, 200, { ok: true, filed }, "/?sent=1#enquire");
+  if (filed) return answer(html, 200, { ok: true, filed }, "/?sent=1#demo-sent");
   const whatsapp = whatsappLink(p.data, to);
   return answer(html, 502, { ok: false, whatsapp }, whatsapp);
 }

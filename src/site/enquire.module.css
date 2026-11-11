@@ -438,6 +438,19 @@
   color: var(--text);
   font: inherit;
 }
+/* Back from the plain form (no JavaScript): /?sent=1#demo-sent shows the thanks, by :target alone. */
+.plainSent {
+  display: none;
+  margin-bottom: 14px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-shot);
+  font-weight: 550;
+}
+.plainSent:target {
+  display: block;
+}
 .plain button {
   height: 52px;
   border: 0;

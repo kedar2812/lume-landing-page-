@@ -309,6 +309,9 @@ export function Enquire({
 
         <noscript>
           <style>{"#demo-card{display:none}"}</style>
+          <p id="demo-sent" className={s.plainSent} role="status">
+            Thank you. That’s with LUME now. A reply is coming on WhatsApp to set up your demo.
+          </p>
           <form className={s.plain} action="/api/enquire" method="post">
             <label>
               Your name <input name="name" required autoComplete="name" />

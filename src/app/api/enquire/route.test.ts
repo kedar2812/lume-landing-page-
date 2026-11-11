@@ -93,7 +93,7 @@ describe("POST /api/enquire (website spec §8)", () => {
   it("a form posted without JavaScript comes back to the form", async () => {
     mockFetch({ licence: 201 });
     const r = await POST(formReq(OK));
-    expect([r.status, r.headers.get("location")]).toEqual([303, "/?sent=1#enquire"]);
+    expect([r.status, r.headers.get("location")]).toEqual([303, "/?sent=1#demo-sent"]);
     mockFetch({ licence: 500 });
     const down = await POST(formReq(OK));
     expect(down.headers.get("location")).toMatch(/^https:\/\/wa\.me\/919764256655/);

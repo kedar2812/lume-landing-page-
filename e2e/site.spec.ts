@@ -162,6 +162,13 @@ test.describe("without JavaScript", () => {
     expect(running).toBe(0);
   });
 
+  test("back from the plain form, the thanks shows (and only then)", async ({ page }) => {
+    await page.goto("/#demo");
+    await expect(page.locator("#demo-sent")).toBeHidden();
+    await page.goto("/?sent=1#demo-sent");
+    await expect(page.locator("#demo-sent")).toBeVisible();
+  });
+
   test("the plain form posts and sends the visitor on to WhatsApp", async ({ page }) => {
     await page.goto("/#demo");
     await page.getByLabel("Your name").fill("Ananya Rao");
