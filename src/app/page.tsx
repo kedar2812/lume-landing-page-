@@ -1,23 +1,23 @@
-import { Hero } from "@/components/hero/Hero";
-import { Island } from "@/components/island/Island";
 import { SmoothScroll } from "@/motion/SmoothScroll";
-import { AnalyticsBuild } from "@/sections/AnalyticsBuild";
-import { Enquire } from "@/sections/Enquire";
-import { Faq } from "@/sections/Faq";
-import { Footer } from "@/sections/Footer";
-import { Forgotten } from "@/sections/Forgotten";
-import { Notes } from "@/sections/Notes";
-import { Phone } from "@/sections/Phone";
-import { Tour } from "@/sections/Tour";
+import { Ai } from "@/site/Ai";
+import { Calendar } from "@/site/Calendar";
+import { Cost } from "@/site/Cost";
+import { Faq, Footer, Own } from "@/site/Closing";
+import { Enquire } from "@/site/Enquire";
+import { Hero } from "@/site/Hero";
+import { Nav } from "@/site/Nav";
+import { Problem } from "@/site/Problem";
+import { Product } from "@/site/Product";
+import { Whatsapp } from "@/site/Whatsapp";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP ?? "919764256655";
 
 /**
- * lumecrm.in, small on purpose (owner's redesign, 2026-10-06): the hero, the problem in one line, the 2-minute tour
- * in front of a live gradient (2026-10-11), LUME in plain
- * notes over its own screens, Analytics built by the scroll like the hero, the phone, four questions, the enquiry. Enough to want the demo; the demo
- * shows the rest.
+ * lumecrm.in, rebuilt from nothing (owner, 2026-11-11). The page argues in order: the problem, live (leads waiting
+ * and cooling in the hero, gathered into LUME by the scroll); one lead's ordinary day, lost; the visitor's own sum;
+ * then what fixes it (LUME AI, WhatsApp Business inside LUME, calls booked on the calendar), the rest of the
+ * product in its own captures, where the data lives, the questions, and the demo in five tapped steps.
  */
 export default function Home() {
   return (
@@ -26,19 +26,22 @@ export default function Home() {
         Skip to the page
       </a>
       <SmoothScroll />
-      <Island whatsapp={WHATSAPP} />
-      <main id="main">
-        <Hero whatsapp={WHATSAPP} />
-        <Forgotten />
-        <Tour />
-        <Notes only={["one-list", "your-day", "whatsapp"]} />
-        <AnalyticsBuild />
-        <Notes only={["team"]} />
-        <Phone />
-        <Faq />
-        <Enquire whatsapp={WHATSAPP} />
-      </main>
-      <Footer />
+      <div className="site">
+        <Nav />
+        <main id="main">
+          <Hero />
+          <Problem />
+          <Cost />
+          <Ai />
+          <Whatsapp />
+          <Calendar />
+          <Product />
+          <Own />
+          <Faq />
+          <Enquire whatsapp={WHATSAPP} />
+        </main>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }

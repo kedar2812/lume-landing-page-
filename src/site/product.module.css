@@ -1,0 +1,207 @@
+/* Six screens of scroll for six screens of LUME. */
+.section {
+  position: relative;
+  height: 560vh;
+  margin-top: calc(var(--space-section) / 2);
+}
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+.in {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+  align-items: center;
+  gap: 28px clamp(28px, 4vw, 64px);
+  padding-top: 76px;
+  padding-bottom: 20px;
+}
+.in > * {
+  min-width: 0;
+}
+.side h2 {
+  font-size: clamp(1.9rem, 0.9rem + 2.6vw, 3.4rem);
+}
+.tabs {
+  display: grid;
+  margin: clamp(20px, 4vh, 40px) 0 clamp(16px, 3vh, 28px);
+}
+.tabs button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: clamp(36px, 5.6vh, 48px);
+  padding: 0 0 0 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text-3);
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: left;
+  cursor: pointer;
+  transition: color 240ms ease;
+}
+.tabs button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line-2);
+}
+.tabs button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 420ms var(--ease);
+}
+.tabs button span {
+  transition: transform 420ms var(--ease);
+}
+.tabs button:hover {
+  color: var(--text);
+}
+.tabs button[aria-pressed="true"] {
+  color: var(--text);
+}
+.tabs button[aria-pressed="true"]::after {
+  transform: scaleY(1);
+}
+.tabs button[aria-pressed="true"] span {
+  transform: translateX(8px);
+}
+.line {
+  min-height: 5.8em;
+  max-width: 26em;
+  color: var(--text-2);
+  animation: line 520ms var(--ease);
+}
+@keyframes line {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* The captures, stacked: the one in view sharp, the last one leaving upward, the next waiting below. */
+.frame {
+  position: relative;
+  aspect-ratio: 1440 / 900;
+  max-height: calc(100svh - 130px);
+  margin-left: auto;
+  width: 100%;
+  border-radius: clamp(12px, 1.6vw, 24px);
+  overflow: hidden;
+  box-shadow: var(--shadow-shot);
+  background: var(--surface);
+}
+.shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(7%) scale(0.97);
+  transition:
+    opacity 520ms ease,
+    transform 760ms var(--ease);
+}
+.shot[data-before="true"] {
+  transform: translateY(-7%) scale(0.97);
+}
+.shot[data-on="true"] {
+  opacity: 1;
+  transform: none;
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+.shot img[data-shot="dark"] {
+  display: none;
+}
+:global(:root[data-theme="dark"]) .shot img[data-shot="dark"] {
+  display: block;
+}
+:global(:root[data-theme="dark"]) .shot img[data-shot="light"] {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .shot img[data-shot="dark"] {
+    display: block;
+  }
+  :global(:root:not([data-theme])) .shot img[data-shot="light"] {
+    display: none;
+  }
+}
+
+.flat {
+  height: auto;
+}
+.flat .pin {
+  position: static;
+  height: auto;
+  padding-block: 40px;
+}
+
+@media (max-width: 900px) {
+  .in {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 72px;
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin: 14px calc(var(--gutter) * -1);
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tabs button {
+    flex: none;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+  .tabs button::before,
+  .tabs button::after {
+    display: none;
+  }
+  .tabs button[aria-pressed="true"] {
+    background: var(--text);
+    color: var(--ground);
+  }
+  .tabs button[aria-pressed="true"] span {
+    transform: none;
+  }
+  .line {
+    min-height: 6.2em;
+    font-size: 0.98rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot,
+  .line {
+    transition: none;
+    animation: none;
+  }
+}

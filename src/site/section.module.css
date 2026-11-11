@@ -1,0 +1,28 @@
+/* What every section shares: its room, its heading, its one paragraph. */
+.section {
+  padding-block: calc(var(--space-section) / 2);
+}
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px clamp(32px, 6vw, 96px);
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.h2 {
+  font-size: var(--fs-h2);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+.lede {
+  max-width: 34em;
+  font-size: var(--fs-lede);
+  line-height: 1.45;
+  color: var(--text-2);
+}
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: 1fr;
+  }
+}

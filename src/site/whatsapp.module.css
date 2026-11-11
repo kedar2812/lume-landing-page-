@@ -1,0 +1,131 @@
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: 48px clamp(40px, 7vw, 120px);
+}
+.scene {
+  position: relative;
+  padding: 0 clamp(0px, 3vw, 40px) 44px 0;
+}
+.chat {
+  border-radius: var(--radius-xl);
+}
+.file {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 10px;
+  align-items: center;
+  margin-top: 8px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: rgba(8, 18, 60, 0.22);
+}
+.file span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+}
+.file small {
+  opacity: 0.75;
+  font-size: 11px;
+}
+.reply {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+}
+.box {
+  flex: 1;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--ground-2);
+  color: var(--text-3);
+}
+.send {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+}
+/* The notice that slides into the corner when a lead writes: it overlaps the chat's foot, as it does in LUME. */
+.noticeIn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 86%);
+}
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  box-shadow:
+    var(--shadow-pop),
+    0 30px 60px -20px rgba(12, 18, 32, 0.35);
+}
+.notice b,
+.notice span span {
+  display: block;
+}
+.notice span span {
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.notice small {
+  align-self: flex-start;
+  color: var(--text-3);
+  font-size: 11px;
+}
+.lede {
+  margin-top: 24px;
+}
+.facts {
+  margin: clamp(32px, 4vw, 52px) 0 0;
+}
+.facts > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: 6px 28px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line-2);
+}
+.facts dt {
+  font-weight: 620;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.facts dd {
+  margin: 0;
+  color: var(--text-2);
+}
+@media (max-width: 960px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .scene {
+    order: 2;
+    max-width: 560px;
+  }
+}
+@media (max-width: 560px) {
+  .facts > div {
+    grid-template-columns: 1fr;
+  }
+}

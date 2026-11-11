@@ -1,0 +1,261 @@
+.section {
+  padding-top: calc(var(--space-section) / 2);
+}
+.head {
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.head > * {
+  max-width: 15em;
+}
+
+/* Two lines of words drifting against each other: where leads come from, and what gets said about them. */
+.drift {
+  overflow: clip;
+  white-space: nowrap;
+  font-size: clamp(2.4rem, 7.4vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.12;
+  user-select: none;
+}
+.drift > div {
+  display: inline-flex;
+  will-change: transform;
+}
+.drift > div > span {
+  display: inline-flex;
+}
+.drift > div > span > span {
+  display: inline-flex;
+  align-items: center;
+}
+.drift i {
+  width: 0.2em;
+  height: 0.2em;
+  margin: 0 0.42em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.quiet {
+  font-weight: 500;
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--text-3);
+}
+.quiet i {
+  background: var(--line-2);
+}
+
+/* The day, pinned: five screens of scroll for one lead's twenty-five hours. */
+.cold {
+  position: relative;
+  height: 520vh;
+  margin-top: clamp(56px, 8vw, 120px);
+}
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(20px, 4vh, 44px);
+  overflow: clip;
+  background: var(--ground-2);
+}
+.warmth {
+  position: absolute;
+  inset: 0;
+  background: var(--warn-soft);
+}
+.scene {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 420px);
+  align-items: center;
+  gap: 32px clamp(32px, 7vw, 120px);
+  padding-top: 72px;
+}
+.day {
+  font-size: var(--fs-lede);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.clock {
+  font-size: clamp(4.5rem, 15vw, 14rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.clock small {
+  margin-left: 0.12em;
+  font-size: 0.26em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-2);
+}
+.since {
+  margin-top: 14px;
+  font-size: var(--fs-lede);
+  color: var(--text-2);
+}
+.since b {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.beats {
+  position: relative;
+  min-height: 4.6em;
+  margin-top: clamp(18px, 3vh, 36px);
+  font-size: clamp(1.25rem, 1rem + 1.1vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.beats p {
+  position: absolute;
+  inset: 0 auto auto 0;
+  max-width: 22em;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 420ms ease,
+    transform 520ms var(--ease);
+}
+.beats p[data-on="true"] {
+  opacity: 1;
+  transform: none;
+}
+.beats p[data-past="true"] {
+  transform: translateY(-18px);
+}
+.phone {
+  border-radius: var(--radius-xl);
+  font-size: 14px;
+}
+.thread {
+  min-height: 372px;
+  justify-content: flex-start;
+}
+.thread > * {
+  transition:
+    opacity 400ms ease,
+    transform 520ms var(--ease);
+}
+.late[data-on="false"],
+.seen[data-on="false"] {
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+}
+.seen {
+  align-self: flex-start;
+  font-size: 11.5px;
+  color: var(--text-3);
+  padding-left: 4px;
+}
+.sorry + .seen {
+  align-self: flex-end;
+}
+
+.heat {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-2);
+}
+.track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--warn), var(--line-2) 70%);
+}
+.track i {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow:
+    0 0 0 2px var(--text),
+    var(--shadow-pop);
+}
+
+.after {
+  padding-block: clamp(72px, 12vw, 180px) calc(var(--space-section) / 2);
+}
+.verdict {
+  max-width: 21em;
+  font-size: clamp(1.7rem, 1rem + 3.2vw, 4rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+
+/* Reduced motion: the whole day at once, nothing pinned. */
+.coldFlat {
+  height: auto;
+}
+.coldFlat .pin {
+  position: static;
+  height: auto;
+  padding-block: 64px;
+}
+.coldFlat .beats {
+  min-height: 0;
+  display: grid;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+.coldFlat .beats p {
+  position: static;
+  transition: none;
+}
+
+@media (max-width: 900px) {
+  .scene {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 64px;
+  }
+  .clock {
+    font-size: clamp(3.4rem, 19vw, 6rem);
+  }
+  .day,
+  .since {
+    font-size: 1rem;
+  }
+  .since {
+    margin-top: 6px;
+  }
+  .beats {
+    min-height: 3.8em;
+    margin-top: 12px;
+    font-size: 1.1rem;
+  }
+  .thread {
+    min-height: 0;
+    padding: 12px;
+    gap: 6px;
+  }
+  .phone {
+    font-size: 13px;
+  }
+  .pin {
+    gap: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thread > *,
+  .beats p {
+    transition: none;
+  }
+}

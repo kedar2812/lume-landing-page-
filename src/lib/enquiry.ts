@@ -28,7 +28,25 @@ export const TEAM_SIZES = [
 ] as const;
 export type TeamSize = (typeof TEAM_SIZES)[number]["id"];
 
-/** What the form asks (seven questions), with what's wrong said in words, per field. */
+/** What's going wrong with their leads today (the form's first question; any that fit). */
+export const NEEDS = [
+  "Replies go out late",
+  "Follow-ups get forgotten",
+  "Leads are scattered across apps",
+  "I can’t see what my team is doing",
+  "Just seeing what LUME does",
+] as const;
+/** New leads a month (the form's second question; one). */
+export const VOLUMES = [
+  { id: "<50", label: "Under 50" },
+  { id: "50-200", label: "50 to 200" },
+  { id: "200-1000", label: "200 to 1,000" },
+  { id: "1000+", label: "Over 1,000" },
+] as const;
+export type Volume = (typeof VOLUMES)[number]["id"];
+export const volumeWords = (v: string) => VOLUMES.find((x) => x.id === v)?.label ?? v;
+
+/** What the form asks, with what's wrong said in words, per field. */
 export const enquirySchema = z
   .object({
     name: z.string().trim().min(1, "Type your name.").max(120, "That name is too long."),
@@ -48,6 +66,16 @@ export const enquirySchema = z
       .string()
       .trim()
       .max(500, "Keep it under 500 characters.")
+      .optional()
+      .transform((v) => v || undefined),
+    need: z
+      .string()
+      .trim()
+      .max(300, "Keep it under 300 characters.")
+      .optional()
+      .transform((v) => v || undefined),
+    volume: z
+      .union([z.literal(""), z.enum(["<50", "50-200", "200-1000", "1000+"], { error: "Choose how many." })])
       .optional()
       .transform((v) => v || undefined),
   })
@@ -72,6 +100,8 @@ export function whatsappLink(
     `Hi, I'd like a demo of LUME.`,
     `${d.name}, ${d.business}`,
     `Team: ${team}`,
+    d.volume ? `${volumeWords(d.volume)} leads a month` : "",
+    d.need ? `What's going wrong: ${d.need}` : "",
     d.how ? `Leads reach us through: ${d.how}` : "",
   ]
     .filter(Boolean)

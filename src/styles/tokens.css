@@ -27,6 +27,7 @@
   --warn: #f2a20c;
   --warn-ink: #8a5a00;
   --warn-soft: #fef4dd;
+  --stop-ink: #b0222a;
   --glass: rgba(255, 255, 255, 0.72);
   --glass-line: rgba(12, 18, 32, 0.08);
   --glow: rgba(42, 91, 255, 0.18);
@@ -59,6 +60,7 @@
   --warn: #f2a20c;
   --warn-ink: #ffcf73;
   --warn-soft: rgba(242, 162, 12, 0.14);
+  --stop-ink: #ff9a9e;
   --glass: rgba(16, 18, 24, 0.62);
   --glass-line: rgba(255, 255, 255, 0.1);
   --glow: rgba(42, 91, 255, 0.45);
@@ -93,6 +95,7 @@
     --warn: #f2a20c;
     --warn-ink: #ffcf73;
     --warn-soft: rgba(242, 162, 12, 0.14);
+    --stop-ink: #ff9a9e;
     --glass: rgba(16, 18, 24, 0.62);
     --glass-line: rgba(255, 255, 255, 0.1);
     --glow: rgba(42, 91, 255, 0.45);
@@ -104,19 +107,22 @@
 }
 
 :root {
-  --font: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  /* The site speaks in Host Grotesk; LUME's own screens, rebuilt here, keep the app's Inter. */
+  --font: var(--font-display), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --ui: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --wa: #25d366;
+  --stop: #e5484d;
   --radius: 14px;
   --radius-lg: 22px;
   --radius-xl: 32px;
-  --gutter: clamp(16px, 4vw, 32px);
-  --max: 1200px;
+  --gutter: clamp(20px, 4.4vw, 56px);
+  --max: 1320px;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --fs-hero: clamp(2.3rem, 1.5rem + 2.6vw, 3.75rem);
-  --fs-h2: clamp(1.8rem, 1.2rem + 2vw, 3rem);
-  --fs-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
-  --fs-lede: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
-  --fs-body: 1rem;
-  --fs-sm: 0.875rem;
-  --ls-hero: -0.045em;
-  --ls-h2: -0.035em;
+  --fs-hero: clamp(2.9rem, 0.6rem + 9.2vw, 9rem);
+  --fs-h2: clamp(2.1rem, 1rem + 4.2vw, 4.75rem);
+  --fs-h3: clamp(1.15rem, 1.05rem + 0.4vw, 1.4rem);
+  --fs-lede: clamp(1.08rem, 1rem + 0.45vw, 1.35rem);
+  --fs-body: 1.0625rem;
+  --fs-sm: 0.9rem;
+  --space-section: clamp(96px, 13vw, 200px);
 }

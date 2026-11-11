@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("next/font/google", () => ({
-  Geist: () => ({ variable: "font-geist" }),
+  Host_Grotesk: () => ({ variable: "font-display" }),
   Inter: () => ({ variable: "font-inter" }),
 }));
 import { structuredData } from "@/lib/structured-data";

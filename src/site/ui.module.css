@@ -1,0 +1,238 @@
+/*
+ * LUME's own screens, rebuilt in HTML: the app's Inter, its surfaces, its blue. Everything here is inside a
+ * "window" so it reads as the product, never as the page.
+ */
+.window {
+  font-family: var(--ui);
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--text);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-shot);
+  overflow: hidden;
+}
+.window h3,
+.window h4 {
+  font-family: var(--ui);
+  font-variation-settings: normal;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+}
+.bar small {
+  font-weight: 400;
+  color: var(--text-3);
+  font-size: 12px;
+}
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+/* People: a solid colour and initials, as LUME draws them. */
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.a1 {
+  background: #2a5bff;
+}
+.a2 {
+  background: #0b7a5f;
+}
+.a3 {
+  background: #a85a14;
+}
+.a4 {
+  background: #b23a60;
+}
+.a5 {
+  background: #4a6076;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 550;
+  white-space: nowrap;
+  background: var(--ground-2);
+  color: var(--text-2);
+}
+.pillBlue {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.pillOk {
+  background: var(--ok-soft);
+  color: var(--ok-ink);
+}
+.pillWarn {
+  background: var(--warn-soft);
+  color: var(--warn-ink);
+}
+.pillStop {
+  background: color-mix(in srgb, var(--stop) 14%, transparent);
+  color: var(--stop-ink);
+}
+
+/* A WhatsApp conversation as LUME lays it out. */
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+.msg {
+  max-width: min(82%, 340px);
+  padding: 9px 12px 8px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.42;
+}
+.in {
+  align-self: flex-start;
+  background: var(--ground-2);
+  border-bottom-left-radius: 5px;
+}
+.out {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 5px;
+}
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 3px;
+  font-size: 10.5px;
+  opacity: 0.72;
+}
+.out .meta {
+  opacity: 1;
+}
+.by {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: auto;
+  font-weight: 600;
+}
+.link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.typing {
+  align-self: flex-end;
+  display: inline-flex;
+  gap: 4px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border-bottom-right-radius: 5px;
+  background: var(--accent-soft);
+}
+.typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dot 1.1s infinite ease-in-out;
+}
+.typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* The LUME AI mark sits on a plain ground: white, or LUME's black. */
+.ai {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+:global(:root[data-theme="dark"]) .ai {
+  background: #141518;
+}
+.ai img {
+  width: 68%;
+  height: 68%;
+}
+.aiSm {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+}
+.aiSm img {
+  width: 78%;
+  height: 78%;
+}
+
+.switchOn {
+  display: inline-block;
+  vertical-align: middle;
+  flex: none;
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--ok);
+}
+.switchOn::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing i {
+    animation: none;
+    opacity: 0.7;
+  }
+}

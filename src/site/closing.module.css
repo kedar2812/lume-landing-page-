@@ -1,0 +1,151 @@
+/* Own server: the one inverted band on the page. */
+.own {
+  margin-block: calc(var(--space-section) / 2);
+  padding-block: clamp(80px, 11vw, 160px);
+  background: #141518;
+  color: #f4f5f7;
+}
+:global(:root[data-theme="dark"]) .own {
+  background: #f5f6f8;
+  color: #0a0c11;
+}
+.statement {
+  font-size: clamp(2.6rem, 0.5rem + 8vw, 8rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  max-width: 11em;
+}
+.ownList {
+  list-style: none;
+  margin: clamp(40px, 6vw, 88px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px clamp(20px, 3vw, 44px);
+}
+.ownList li {
+  padding-top: 18px;
+  border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  opacity: 0.86;
+}
+
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 40px clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.faq > h2 {
+  position: sticky;
+  top: 110px;
+}
+.item {
+  border-top: 1px solid var(--line-2);
+}
+.item:last-child {
+  border-bottom: 1px solid var(--line-2);
+}
+.item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  cursor: pointer;
+  list-style: none;
+}
+.item summary::-webkit-details-marker {
+  display: none;
+}
+.item summary svg {
+  flex: none;
+  color: var(--text-3);
+  transition: transform 300ms var(--ease);
+}
+.item[open] summary svg {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+.item p {
+  max-width: 62ch;
+  padding: 0 44px 28px 0;
+  color: var(--text-2);
+}
+
+.foot {
+  padding: clamp(56px, 8vw, 110px) 0 28px;
+  border-top: 1px solid var(--line);
+}
+.footTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  gap: 32px clamp(32px, 8vw, 140px);
+  align-items: start;
+}
+.google {
+  max-width: 68ch;
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
+.docs {
+  display: grid;
+  gap: 10px;
+  font-weight: 550;
+}
+.docs a {
+  color: var(--text);
+  text-decoration: none;
+}
+.docs a:hover {
+  color: var(--accent-ink);
+}
+/* The name, as wide as the page allows, with the mark exactly as it is. */
+.word {
+  display: flex;
+  align-items: center;
+  gap: 0.12em;
+  margin: clamp(40px, 7vw, 96px) 0 20px;
+  font-size: clamp(5rem, 27vw, 25rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+  user-select: none;
+}
+.word > div {
+  display: flex;
+  align-items: center;
+  gap: inherit;
+}
+.word img {
+  width: auto;
+  height: 0.74em;
+}
+.copy {
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
+@media (max-width: 900px) {
+  .ownList,
+  .faq,
+  .footTop {
+    grid-template-columns: 1fr;
+  }
+  .faq > h2 {
+    position: static;
+  }
+  .item p {
+    padding-right: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .item summary svg {
+    transition: none;
+  }
+}

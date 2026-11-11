@@ -1,0 +1,145 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.6fr);
+  min-height: 440px;
+  border-radius: var(--radius-xl);
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.lead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 8px 0;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms var(--ease);
+}
+.lead:hover {
+  background: var(--ground-2);
+}
+.lead[aria-pressed="true"] {
+  background: var(--surface);
+  box-shadow: var(--shadow-pop);
+}
+.lead b,
+.lead small {
+  display: block;
+}
+.lead b {
+  font-weight: 600;
+}
+.lead small {
+  color: var(--text-3);
+  font-size: 12px;
+}
+.talk {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  animation: swap 320ms var(--ease);
+}
+@keyframes swap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.thread {
+  flex: 1;
+  justify-content: flex-end;
+}
+.card {
+  margin: 0 16px 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--ground-2);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.card b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 13.5px;
+}
+.card p {
+  color: var(--text-2);
+  max-width: 60ch;
+}
+.card[data-kind="ready"] {
+  background: var(--ok-soft);
+  box-shadow: inset 3px 0 0 var(--ok);
+}
+.card[data-kind="needs"] {
+  background: var(--warn-soft);
+  box-shadow: inset 3px 0 0 var(--warn);
+}
+.card[data-kind="stop"] {
+  background: color-mix(in srgb, var(--stop) 10%, transparent);
+  box-shadow: inset 3px 0 0 var(--stop);
+}
+.card[data-kind="stop"] b {
+  color: var(--stop-ink);
+}
+
+/* The rules LUME AI keeps: four plain statements on one line of the page, ruled above like a ledger. */
+.rules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(20px, 3vw, 44px);
+  margin: clamp(40px, 6vw, 80px) 0 0;
+}
+.rules > div {
+  padding-top: 18px;
+  border-top: 1px solid var(--line-2);
+}
+.rules dt {
+  font-size: var(--fs-h3);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.rules dd {
+  margin: 8px 0 0;
+  color: var(--text-2);
+}
+@media (max-width: 1000px) {
+  .rules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+  }
+}
+@media (max-width: 760px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .list {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+  .lead small {
+    display: none;
+  }
+  .thread {
+    min-height: 200px;
+  }
+}
+@media (max-width: 520px) {
+  .rules {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .talk {
+    animation: none;
+  }
+}

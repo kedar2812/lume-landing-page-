@@ -1,0 +1,251 @@
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  align-items: start;
+}
+.week {
+  border-radius: var(--radius-xl);
+}
+.legend {
+  display: flex;
+  gap: 16px;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.grid {
+  --row: 52px;
+  display: grid;
+  grid-template-columns: 52px repeat(6, minmax(0, 1fr));
+  padding: 0 12px 14px 0;
+}
+.times {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), var(--row));
+  margin-top: 44px;
+  font-size: 11px;
+  color: var(--text-3);
+  text-align: right;
+  padding-right: 10px;
+}
+.times span {
+  transform: translateY(-7px);
+}
+.col {
+  min-width: 0;
+  border-left: 1px solid var(--line);
+}
+.dayHead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.dayHead b {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 13px;
+}
+.col[data-today="true"] .dayHead b {
+  background: var(--accent);
+  color: #fff;
+}
+.slots {
+  position: relative;
+  height: calc(var(--rows) * var(--row));
+  background-image: linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 100% var(--row);
+}
+.meet {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  box-shadow: inset 3px 0 0 var(--sky);
+  transition:
+    transform 180ms var(--ease),
+    box-shadow 180ms var(--ease);
+}
+.meet > span:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.meet img,
+.meet > :first-child {
+  flex: none;
+}
+.meet[data-by="lume_ai"] {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: none;
+}
+.meet[data-by="google"] {
+  box-shadow: inset 3px 0 0 var(--line-2);
+}
+.meet:hover {
+  transform: scale(1.03);
+}
+.meet[aria-pressed="true"] {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.side {
+  display: grid;
+  gap: 20px;
+}
+.drawer,
+.times2 {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+}
+.drawer {
+  animation: in 320ms var(--ease);
+}
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+.when {
+  margin-top: 4px;
+  color: var(--text-2);
+}
+.why {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--ground-2);
+}
+.meetLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-weight: 550;
+}
+.outcome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.outcome small {
+  width: 100%;
+  color: var(--text-3);
+}
+.times2 dl {
+  margin: 10px 0 0;
+}
+.times2 dl div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 38px;
+  border-top: 1px solid var(--line);
+}
+.times2 dt {
+  color: var(--text-2);
+}
+.times2 dd {
+  margin: 0;
+  font-weight: 550;
+}
+
+.notes {
+  list-style: none;
+  margin: clamp(36px, 5vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px clamp(20px, 3vw, 44px);
+}
+.notes li {
+  padding-top: 18px;
+  border-top: 1px solid var(--line-2);
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+@media (max-width: 1100px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .legend {
+    display: none;
+  }
+  .grid {
+    --row: 44px;
+    grid-template-columns: 40px repeat(6, minmax(0, 1fr));
+    padding-right: 6px;
+  }
+  .meet {
+    left: 2px;
+    right: 2px;
+    padding: 0;
+    justify-content: center;
+  }
+  .meet > span:last-child {
+    display: none;
+  }
+  .dayHead {
+    flex-direction: column;
+    gap: 0;
+    font-size: 10px;
+  }
+  .side,
+  .notes {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawer {
+    animation: none;
+  }
+  .meet:hover {
+    transform: none;
+  }
+}
